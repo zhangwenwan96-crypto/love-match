@@ -3,341 +3,593 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>KnowYourMatch · 懂自己，遇良人</title>
+<meta name="description" content="HerMatch - 通过科学测评帮助女性认识自己，找到更适合的长期伴侣。">
+<title>HerMatch - 她的理想关系</title>
 <style>
-:root{--rose:#d4a0a0;--gold:#c8a27a;--pink:#f2d5d5;--cream:#fdf6f0;--dark:#3d2c2c;--text:#5c4a4a;--white:#fff}
+:root{
+  --cream:#fdf8f4;--white:#fff;--rose:#c49b9b;--gold:#b8936e;--lavender:#b8a9c9;
+  --mauve:#d4a0a0;--text:#4a3f3f;--text-light:#8a7e7e;--dark:#2d2424;
+  --pink-bg:#fdf2f2;--card-shadow:0 2px 24px rgba(0,0,0,.04);
+  --radius:18px;--radius-sm:12px;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Georgia','Noto Serif SC','PingFang SC',serif;color:var(--text);background:var(--cream);overflow-x:hidden}
-
-/* Hero */
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
-  background:linear-gradient(170deg,#fdf6f0 0%,#f9e4e4 30%,#f2d5d5 60%,#fdf6f0 100%)}
-.hero::before{content:'';position:absolute;width:800px;height:800px;background:radial-gradient(circle,rgba(212,160,160,.15) 0%,transparent 70%);top:-200px;right:-200px;border-radius:50%}
-.hero::after{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(200,162,122,.1) 0%,transparent 70%);bottom:-100px;left:-100px;border-radius:50%}
-.hero-inner{position:relative;z-index:1;text-align:center;max-width:700px;padding:40px}
-.hero h1{font-size:48px;color:var(--dark);margin-bottom:12px;letter-spacing:4px;font-weight:400}
-.hero h1 span{display:block;font-size:24px;color:var(--rose);margin-top:8px;letter-spacing:6px;font-weight:300}
-.hero .tagline{font-size:18px;color:var(--gold);margin-bottom:40px;letter-spacing:2px}
-.hero .btn{display:inline-block;padding:16px 48px;border:1.5px solid var(--rose);color:var(--rose);font-size:16px;letter-spacing:3px;border-radius:40px;cursor:pointer;transition:all .3s;text-decoration:none}
-.hero .btn:hover{background:var(--rose);color:var(--white)}
-.hero .float{position:absolute;pointer-events:none;font-size:28px;opacity:.15;animation:float 8s ease-in-out infinite}
-.hero .float:nth-child(1){top:12%;left:8%;animation-delay:0s}
-.hero .float:nth-child(2){top:25%;right:10%;animation-delay:2s;font-size:36px}
-.hero .float:nth-child(3){bottom:20%;left:12%;animation-delay:4s;font-size:22px}
-.hero .float:nth-child(4){bottom:10%;right:8%;animation-delay:6s;font-size:32px}
-@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-20px) rotate(3deg)}}
-
-/* Sections */
-.section{padding:100px 20px;max-width:1000px;margin:0 auto}
-.section h2{text-align:center;font-size:32px;color:var(--dark);margin-bottom:12px;font-weight:400;letter-spacing:3px}
-.section .sub{text-align:center;color:var(--gold);margin-bottom:60px;font-size:15px;letter-spacing:2px}
-
-/* Test Cards */
-.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
-.test-card{background:var(--white);border-radius:16px;padding:36px 24px;text-align:center;cursor:pointer;transition:all .3s;border:1px solid rgba(200,162,122,.15);box-shadow:0 2px 20px rgba(0,0,0,.04)}
-.test-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(200,162,122,.12);border-color:var(--rose)}
-.test-card .icon{font-size:40px;margin-bottom:16px}
-.test-card h3{font-size:20px;color:var(--dark);margin-bottom:8px;font-weight:400}
-.test-card p{font-size:13px;color:var(--gold);line-height:1.7}
-
-/* Quiz */
-.quiz{display:none;background:var(--white);border-radius:20px;padding:48px 36px;box-shadow:0 4px 30px rgba(0,0,0,.04);border:1px solid rgba(200,162,122,.1)}
-.quiz.active{display:block}
-.quiz-header{text-align:center;margin-bottom:40px}
-.quiz-header h3{font-size:24px;color:var(--dark);margin-bottom:8px;font-weight:400}
-.quiz-header .progress{height:3px;background:#f0e4e4;border-radius:3px;margin-top:24px;overflow:hidden}
-.quiz-header .progress-bar{height:100%;background:linear-gradient(90deg,var(--rose),var(--gold));border-radius:3px;transition:width .4s}
-.question{text-align:center;margin-bottom:32px}
-.question h4{font-size:20px;color:var(--dark);margin-bottom:24px;font-weight:400;line-height:1.6}
-.options{display:grid;gap:12px;max-width:500px;margin:0 auto}
-.option{padding:16px 20px;border:1.5px solid #ead5d5;border-radius:12px;cursor:pointer;transition:all .2s;font-size:15px;color:var(--text);text-align:left}
-.option:hover{border-color:var(--rose);background:rgba(212,160,160,.05)}
-.option.selected{border-color:var(--rose);background:rgba(212,160,160,.1);color:var(--rose)}
-.btn-quiz{margin-top:32px;text-align:center}
-.btn-quiz button{padding:14px 40px;border:none;background:var(--rose);color:var(--white);font-size:15px;letter-spacing:2px;border-radius:30px;cursor:pointer;transition:all .3s}
-.btn-quiz button:hover{background:#c08a8a}
-.btn-quiz button:disabled{opacity:.4;cursor:not-allowed}
-
-/* Results */
-.result{display:none;text-align:center}
-.result.active{display:block}
-.result .type-badge{display:inline-block;padding:10px 30px;background:linear-gradient(135deg,var(--rose),var(--gold));color:var(--white);border-radius:30px;font-size:18px;letter-spacing:3px;margin-bottom:32px}
-.result .desc{max-width:600px;margin:0 auto 40px;line-height:1.9;color:var(--text)}
-.result .matches{margin-top:40px}
-.result .matches h4{color:var(--dark);margin-bottom:16px;font-weight:400}
-.match-tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
-.match-tag{padding:8px 20px;background:var(--pink);border-radius:20px;font-size:14px;color:var(--rose)}
-.back-btn{margin-top:40px;display:inline-block;padding:12px 36px;border:1.5px solid var(--rose);color:var(--rose);border-radius:30px;cursor:pointer;transition:all .3s;font-size:14px;letter-spacing:2px}
-.back-btn:hover{background:var(--rose);color:var(--white)}
-
-/* Info section */
-.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px}
-.why-card{text-align:center;padding:32px 20px}
-.why-card .icon{font-size:36px;margin-bottom:12px}
-.why-card h4{font-size:18px;color:var(--dark);margin-bottom:8px;font-weight:400}
-.why-card p{font-size:14px;color:var(--gold);line-height:1.7}
-
-footer{text-align:center;padding:60px 20px;color:var(--gold);font-size:13px;letter-spacing:1px}
-footer a{color:var(--rose)}
+html{scroll-behavior:smooth}
+body{font-family:'Georgia','Noto Serif SC','PingFang SC','Microsoft YaHei',serif;color:var(--text);background:var(--cream);line-height:1.8;overflow-x:hidden}
+nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(253,248,244,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(180,150,150,.1);padding:0 20px;transition:all .3s}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.06)}
+nav .inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+nav .logo{font-size:20px;font-weight:600;color:var(--dark);letter-spacing:2px;text-decoration:none}
+nav .logo span{color:var(--rose)}
+nav .links{display:flex;gap:28px;font-size:14px;color:var(--text-light)}
+nav .links a{text-decoration:none;color:inherit;transition:color .2s}
+nav .links a:hover{color:var(--rose)}
+nav .btn-cta{padding:9px 22px;background:var(--rose);color:var(--white)!important;border-radius:24px;font-size:13px;letter-spacing:1px;text-decoration:none;transition:all .2s}
+nav .btn-cta:hover{background:#b08080;transform:translateY(-1px)}
+.section{padding:100px 20px;max-width:1100px;margin:0 auto}
+.section-label{display:inline-block;font-size:12px;letter-spacing:3px;color:var(--rose);text-transform:uppercase;margin-bottom:12px}
+.section h2{font-size:36px;color:var(--dark);font-weight:500;margin-bottom:12px;letter-spacing:2px}
+.section .subtitle{font-size:16px;color:var(--text-light);margin-bottom:56px;line-height:1.8;max-width:600px}
+.section.center{text-align:center}
+.section.center .subtitle{margin-left:auto;margin-right:auto}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:120px 20px 80px;background:radial-gradient(ellipse 80% 60% at 50% 40%,#fdf2f2 0%,#fdf8f4 60%,#f8f0e8 100%)}
+.hero .dots{position:absolute;width:100%;height:100%;top:0;left:0;pointer-events:none;opacity:.06;background-image:radial-gradient(circle,var(--rose) 1px,transparent 1px);background-size:40px 40px}
+.hero-inner{position:relative;z-index:1;text-align:center;max-width:720px}
+.hero .badge{display:inline-block;padding:6px 20px;background:rgba(196,155,155,.1);color:var(--rose);border-radius:20px;font-size:13px;letter-spacing:2px;margin-bottom:28px}
+.hero h1{font-size:clamp(32px,6vw,52px);color:var(--dark);font-weight:500;line-height:1.3;margin-bottom:20px;letter-spacing:3px}
+.hero h1 em{font-style:normal;color:var(--rose);position:relative}
+.hero h1 em::after{content:'';position:absolute;bottom:2px;left:0;width:100%;height:6px;background:rgba(212,160,160,.2);border-radius:3px}
+.hero .desc{font-size:18px;color:var(--text-light);margin-bottom:48px;line-height:1.9;max-width:560px;margin-left:auto;margin-right:auto}
+.hero .btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:15px 40px;border-radius:30px;font-size:15px;letter-spacing:2px;cursor:pointer;transition:all .3s;text-decoration:none;font-family:inherit}
+.btn-primary{background:linear-gradient(135deg,var(--rose),#b08080);color:var(--white);border:none;box-shadow:0 4px 20px rgba(196,155,155,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(196,155,155,.4)}
+.btn-outline{border:1.5px solid var(--rose);color:var(--rose);background:transparent}
+.btn-outline:hover{background:var(--rose);color:var(--white)}
+.btn-sm{padding:10px 28px;font-size:13px;letter-spacing:1px}
+.btn-block{display:block;width:100%;text-align:center}
+.pain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+.pain-card{background:var(--white);border-radius:var(--radius);padding:36px 28px;border:1px solid rgba(184,169,201,.15);transition:all .3s}
+.pain-card:hover{transform:translateY(-4px);box-shadow:var(--card-shadow);border-color:rgba(212,160,160,.2)}
+.pain-card .icon{font-size:32px;margin-bottom:16px}
+.pain-card h4{font-size:17px;color:var(--dark);margin-bottom:8px;font-weight:500}
+.pain-card p{font-size:14px;color:var(--text-light);line-height:1.7}
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.test-card{background:var(--white);border-radius:var(--radius);padding:32px 28px;cursor:pointer;border:1px solid rgba(200,180,180,.1);transition:all .3s;display:flex;gap:20px;align-items:flex-start}
+.test-card:hover{transform:translateY(-2px);box-shadow:var(--card-shadow);border-color:var(--rose)}
+.test-card .t-icon{font-size:36px;flex-shrink:0}
+.test-card .t-info h4{font-size:17px;color:var(--dark);margin-bottom:6px;font-weight:500}
+.test-card .t-info p{font-size:13px;color:var(--text-light);line-height:1.6}
+.test-card .t-badge{display:inline-block;padding:3px 12px;background:rgba(196,155,155,.08);color:var(--rose);border-radius:10px;font-size:11px;letter-spacing:1px;margin-top:8px}
+#quizOverlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:200;background:rgba(45,36,36,.4);backdrop-filter:blur(10px);align-items:center;justify-content:center}
+#quizOverlay.active{display:flex}
+#quizBox{background:var(--white);border-radius:24px;padding:48px 36px;max-width:600px;width:90%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.15);position:relative}
+.quiz-close{position:absolute;top:20px;right:20px;width:36px;height:36px;border-radius:50%;border:1px solid #e0d5d5;background:var(--white);cursor:pointer;font-size:18px;color:var(--text-light);display:flex;align-items:center;justify-content:center;transition:all .2s}
+.quiz-close:hover{background:#f5f0f0;color:var(--text)}
+.quiz-header{text-align:center;margin-bottom:36px}
+.quiz-header h3{font-size:22px;color:var(--dark);font-weight:500}
+.quiz-header .quiz-sub{font-size:13px;color:var(--text-light);margin-top:4px}
+.quiz-progress{height:4px;background:#f0e8e8;border-radius:2px;margin-top:20px;overflow:hidden}
+.quiz-progress-bar{height:100%;background:linear-gradient(90deg,var(--rose),var(--gold));border-radius:2px;transition:width .4s}
+.quiz-q{text-align:center;margin-bottom:32px}
+.quiz-q h4{font-size:18px;color:var(--dark);margin-bottom:20px;font-weight:500;line-height:1.6}
+.quiz-opts{display:grid;gap:10px;max-width:460px;margin:0 auto}
+.quiz-opt{padding:14px 20px;border:1.5px solid #e8dbdb;border-radius:var(--radius-sm);cursor:pointer;transition:all .2s;font-size:14px;color:var(--text);text-align:left}
+.quiz-opt:hover{border-color:var(--rose);background:rgba(196,155,155,.04)}
+.quiz-opt.sel{border-color:var(--rose);background:rgba(196,155,155,.08);color:var(--rose)}
+.quiz-btn{margin-top:28px;text-align:center}
+.quiz-btn button{padding:14px 44px;border:none;background:var(--rose);color:var(--white);font-size:15px;letter-spacing:2px;border-radius:28px;cursor:pointer;transition:all .3s}
+.quiz-btn button:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(196,155,155,.3)}
+.quiz-btn button:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
+#profileOverlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:200;background:rgba(45,36,36,.4);backdrop-filter:blur(10px);align-items:center;justify-content:center}
+#profileOverlay.active{display:flex}
+#profileBox{background:var(--white);border-radius:24px;padding:48px 36px;max-width:680px;width:90%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.15);position:relative}
+.profile-close{position:absolute;top:20px;right:20px;width:36px;height:36px;border-radius:50%;border:1px solid #e0d5d5;background:var(--white);cursor:pointer;font-size:18px;color:var(--text-light);display:flex;align-items:center;justify-content:center;transition:all .2s}
+.profile-close:hover{background:#f5f0f0}
+.profile-title{text-align:center;margin-bottom:32px}
+.profile-title h2{font-size:28px;color:var(--dark);font-weight:500;letter-spacing:2px}
+.radar-container{width:280px;height:280px;margin:0 auto 32px}
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.profile-item{background:var(--cream);border-radius:var(--radius-sm);padding:20px}
+.profile-item h5{font-size:13px;color:var(--rose);letter-spacing:1px;margin-bottom:8px}
+.profile-item p,.profile-item ul{font-size:14px;color:var(--text);line-height:1.8}
+.profile-item ul{padding-left:18px}
+.profile-item ul li{margin-bottom:4px}
+.profile-full{grid-column:1/-1}
+.profile-actions{text-align:center;margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.match-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:20px;margin-bottom:48px}
+.match-step{text-align:center;padding:28px 16px;background:var(--white);border-radius:var(--radius);border:1px solid rgba(200,180,180,.1)}
+.match-step .step-num{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--gold));color:var(--white);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:18px;font-weight:600}
+.match-step h4{font-size:15px;color:var(--dark);font-weight:500}
+.match-dims{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.match-dim{background:var(--white);padding:24px;border-radius:var(--radius-sm);border-left:3px solid var(--rose)}
+.match-dim h5{font-size:15px;color:var(--dark);margin-bottom:6px;font-weight:500}
+.match-dim p{font-size:13px;color:var(--text-light);line-height:1.7}
+.safety-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.safety-card{background:var(--white);border-radius:var(--radius);padding:32px 24px;text-align:center;border:1px solid rgba(184,169,201,.12)}
+.safety-card .s-icon{font-size:28px;margin-bottom:12px}
+.safety-card h5{font-size:15px;color:var(--dark);margin-bottom:6px;font-weight:500}
+.safety-card p{font-size:13px;color:var(--text-light);line-height:1.6}
+.plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;align-items:start}
+.plan-card{background:var(--white);border-radius:var(--radius);padding:40px 32px;border:1px solid rgba(200,180,180,.1);text-align:center;transition:all .3s;position:relative}
+.plan-card.featured{border-color:var(--rose);box-shadow:0 4px 32px rgba(196,155,155,.15);transform:scale(1.02)}
+.plan-card.featured::before{content:'推荐';position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:4px 20px;background:var(--rose);color:var(--white);border-radius:12px;font-size:11px;letter-spacing:2px}
+.plan-card h4{font-size:20px;color:var(--dark);font-weight:500;margin-bottom:4px}
+.plan-card .plan-type{font-size:13px;color:var(--text-light);margin-bottom:20px}
+.plan-card .plan-price{font-size:36px;color:var(--dark);margin-bottom:4px}
+.plan-card .plan-price span{font-size:16px;color:var(--text-light)}
+.plan-card .plan-features{text-align:left;margin:24px 0}
+.plan-card .plan-features li{font-size:14px;color:var(--text);padding:6px 0;border-bottom:1px solid #f5f0f0;list-style:none}
+.plan-card .plan-features li::before{content:'\2713 ';color:var(--rose);font-weight:bold}
+.plan-card .plan-features li.na::before{content:'\2014 ';color:#ccc}
+.testimonial-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.testimonial{background:var(--white);border-radius:var(--radius);padding:36px 28px;border:1px solid rgba(200,180,180,.08)}
+.testimonial .quote{font-size:15px;color:var(--text);line-height:1.9;margin-bottom:16px;position:relative;padding-left:20px}
+.testimonial .quote::before{content:'\201C';position:absolute;left:0;top:-4px;font-size:40px;color:var(--rose);opacity:.3;line-height:1}
+.testimonial .author{font-size:13px;color:var(--text-light)}
+.faq-list{max-width:800px;margin:0 auto}
+.faq-item{background:var(--white);border-radius:var(--radius-sm);margin-bottom:12px;overflow:hidden;border:1px solid rgba(200,180,180,.08)}
+.faq-q{padding:18px 24px;cursor:pointer;font-size:15px;color:var(--dark);display:flex;justify-content:space-between;align-items:center;font-weight:500}
+.faq-q::after{content:'+';font-size:18px;color:var(--rose);transition:transform .3s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{padding:0 24px 18px;font-size:14px;color:var(--text-light);line-height:1.8;display:none}
+.faq-item.open .faq-a{display:block}
+footer{background:var(--dark);color:rgba(255,255,255,.6);padding:60px 20px 30px}
+footer .f-inner{max-width:1100px;margin:0 auto}
+footer .f-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:36px;margin-bottom:40px}
+footer h5{color:rgba(255,255,255,.9);font-size:14px;letter-spacing:2px;margin-bottom:16px;font-weight:500}
+footer a,footer p{font-size:13px;color:rgba(255,255,255,.5);text-decoration:none;display:block;margin-bottom:8px;line-height:1.8}
+footer a:hover{color:var(--rose)}
+footer .f-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;text-align:center;font-size:12px}
+.section-alt{background:var(--white)}
+@media(max-width:768px){
+  .section{padding:64px 16px}
+  .section h2{font-size:28px}
+  nav .links{display:none}
+  .hero h1{font-size:28px}
+  .hero .desc{font-size:15px}
+  .test-card{flex-direction:column}
+  .plan-card.featured{transform:none}
+  .profile-grid{grid-template-columns:1fr}
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .6s ease-out}
 </style>
 </head>
 <body>
-
-<div class="hero" id="home">
-  <span class="float">🌸</span><span class="float">✨</span><span class="float">🌹</span><span class="float">🕊️</span>
-  <div class="hero-inner">
-    <h1>Know Your Match<span>懂自己 · 遇良人</span></h1>
-    <p class="tagline">先了解自己，才能遇见真正对的人</p>
-    <a href="#tests" class="btn">开 始 探 索</a>
+<nav id="nav">
+  <div class="inner">
+    <a href="#hero" class="logo">Her<span>Match</span></a>
+    <div class="links">
+      <a href="#tests">测评</a><a href="#matching">匹配逻辑</a><a href="#safety">安全隐私</a><a href="#plans">会员</a><a href="#faq">FAQ</a>
+    </div>
+    <a href="#tests" class="btn-cta">开始测评</a>
   </div>
-</div>
-
-<div class="section" id="tests">
-  <h2>认识自己</h2>
-  <p class="sub">选择一项国际心理测试，开启自我发现之旅</p>
+</nav>
+<section class="hero" id="hero">
+  <div class="dots"></div>
+  <div class="hero-inner fade-up">
+    <div class="badge">&#10022; 女性专属关系认知平台</div>
+    <h1>先了解自己，<br>再<em>遇见对的人</em></h1>
+    <p class="desc">通过科学测评、关系画像和匹配建议，<br>帮助女性做出更清醒、更从容的关系选择。</p>
+    <div class="btns">
+      <a href="#tests" class="btn btn-primary">开始我的关系测评</a>
+      <a href="#matching" class="btn btn-outline">了解匹配逻辑</a>
+    </div>
+  </div>
+</section>
+<section class="section center" id="pain">
+  <div class="section-label">Why HerMatch</div>
+  <h2>你不是"要求太高"，<br>你只是还没有看清自己</h2>
+  <p class="subtitle">很多女性在相亲和恋爱中反复感到疲惫，不是因为不够好，而是因为不够了解自己真正需要什么。</p>
+  <div class="pain-grid">
+    <div class="pain-card"><div class="icon">&#128257;</div><h4>反复遇到不适合的人</h4><p>明明条件不错，却总是被同一类人吸引，反复陷入相似的关系困境。</p></div>
+    <div class="pain-card"><div class="icon">&#10067;</div><h4>说不清自己要什么</h4><p>被问到"你想找什么样的"，脑子里只有"对我好就行"，但其实远远不够。</p></div>
+    <div class="pain-card"><div class="icon">&#128542;</div><h4>恋爱后才发现不合适</h4><p>初期的心动掩盖了价值观的根本分歧，投入了感情才发现走不下去。</p></div>
+    <div class="pain-card"><div class="icon">&#9203;</div><h4>相亲越来越麻木</h4><p>见了很多人，却越来越难心动。不是标准高，而是没有建立清晰的选择框架。</p></div>
+  </div>
+</section>
+<section class="section" id="tests">
+  <div class="section-label">Self-Discovery</div>
+  <h2>六项科学测评，认识完整的自己</h2>
+  <p class="subtitle">参考国际通用心理学模型设计，帮助你从人格、依恋、需求、沟通、价值观、底线六个维度理解自己的关系模式。</p>
   <div class="test-grid">
-    <div class="test-card" onclick="startQuiz('mbti')">
-      <div class="icon">🧠</div>
-      <h3>MBTI 性格类型</h3>
-      <p>基于荣格心理学，发现你的性格偏好与思维模式。全球最广泛使用的性格工具。</p>
-    </div>
-    <div class="test-card" onclick="startQuiz('attachment')">
-      <div class="icon">💞</div>
-      <h3>依恋类型</h3>
-      <p>了解你在亲密关系中的依恋模式：安全型、焦虑型、回避型还是恐惧型。</p>
-    </div>
-    <div class="test-card" onclick="startQuiz('lovelang')">
-      <div class="icon">💝</div>
-      <h3>爱的五种语言</h3>
-      <p>你最能感受到爱的方式是什么？肯定、陪伴、礼物、服务还是肢体接触？</p>
-    </div>
-    <div class="test-card" onclick="startQuiz('values')">
-      <div class="icon">🌟</div>
-      <h3>核心价值观</h3>
-      <p>在关系中你最看重什么？安全感、成长、自由还是稳定？找到你的价值排序。</p>
-    </div>
+    <div class="test-card" onclick="startQuiz('bigfive')"><div class="t-icon">&#129513;</div><div class="t-info"><h4>人格特质测评</h4><p>参考Big Five模型，了解开放性、责任心、外向性、宜人性、情绪稳定性</p><span class="t-badge">约3分钟 &#183; 5题</span></div></div>
+    <div class="test-card" onclick="startQuiz('attachment')"><div class="t-icon">&#128150;</div><div class="t-info"><h4>依恋风格测评</h4><p>了解你是安全型、焦虑型、回避型还是混合型依恋</p><span class="t-badge">约3分钟 &#183; 5题</span></div></div>
+    <div class="test-card" onclick="startQuiz('needs')"><div class="t-icon">&#127807;</div><div class="t-info"><h4>亲密关系需求测评</h4><p>识别情绪陪伴、稳定承诺、成长支持、经济安全、精神共鸣的需求排序</p><span class="t-badge">约3分钟 &#183; 5题</span></div></div>
+    <div class="test-card" onclick="startQuiz('comm')"><div class="t-icon">&#128172;</div><div class="t-info"><h4>沟通方式测评</h4><p>分析你在冲突中更倾向表达、回避、讨好、控制还是理性沟通</p><span class="t-badge">约2分钟 &#183; 4题</span></div></div>
+    <div class="test-card" onclick="startQuiz('values')"><div class="t-icon">&#11088;</div><div class="t-info"><h4>择偶价值观测评</h4><p>梳理事业、家庭、金钱、育儿、生活方式的价值观优先级</p><span class="t-badge">约3分钟 &#183; 5题</span></div></div>
+    <div class="test-card" onclick="startQuiz('redflags')"><div class="t-icon">&#128737;</div><div class="t-info"><h4>关系红线测评</h4><p>明确不能接受的伴侣行为，建立个人边界感</p><span class="t-badge">约2分钟 &#183; 4题</span></div></div>
   </div>
-</div>
-
-<div class="section" style="display:none" id="quizSection">
-  <div class="quiz active" id="quizBox"></div>
-  <div class="result" id="resultBox"></div>
-</div>
-
-<div class="section" style="background:linear-gradient(180deg,#fdf6f0,#fff,#fdf6f0)">
-  <h2>为什么先认识自己？</h2>
-  <p class="sub">好的关系，从"懂自己"开始</p>
-  <div class="why-grid">
-    <div class="why-card"><div class="icon">🎯</div><h4>更精准的匹配</h4><p>了解自己的性格和需求，才知道什么样的人真正适合你</p></div>
-    <div class="why-card"><div class="icon">🛡️</div><h4>避免盲目投入</h4><p>不再被表面条件迷惑，找到深层次的情感契合</p></div>
-    <div class="why-card"><div class="icon">🌱</div><h4>共同成长</h4><p>理解彼此的差异，把不同变成互补，一起变得更好</p></div>
+</section>
+<div id="quizOverlay"><div id="quizBox"></div></div>
+<div id="profileOverlay"><div id="profileBox"></div></div>
+<section class="section section-alt center" id="matching">
+  <div class="section-label">How Matching Works</div>
+  <h2>我们如何帮你匹配</h2>
+  <p class="subtitle">不是简单的条件筛选，而是多维度的关系兼容性分析</p>
+  <div class="match-steps">
+    <div class="match-step"><div class="step-num">1</div><h4>完成测评</h4></div>
+    <div class="match-step"><div class="step-num">2</div><h4>生成关系画像</h4></div>
+    <div class="match-step"><div class="step-num">3</div><h4>明确择偶标准</h4></div>
+    <div class="match-step"><div class="step-num">4</div><h4>推荐伴侣类型</h4></div>
+    <div class="match-step"><div class="step-num">5</div><h4>约会观察建议</h4></div>
   </div>
-</div>
-
+  <div class="match-dims">
+    <div class="match-dim"><h5>&#129513; 性格互补度</h5><p>分析人格特质的互补性，避免性格冲突</p></div>
+    <div class="match-dim"><h5>&#128153; 情绪稳定度</h5><p>评估双方情绪调节能力，预测关系稳定性</p></div>
+    <div class="match-dim"><h5>&#11088; 价值观一致度</h5><p>比对事业、家庭、金钱等核心价值观</p></div>
+    <div class="match-dim"><h5>&#128172; 沟通方式兼容度</h5><p>分析冲突处理模式的匹配程度</p></div>
+    <div class="match-dim"><h5>&#127919; 长期关系目标一致度</h5><p>婚姻观、生育观、生活规划的契合度</p></div>
+    <div class="match-dim"><h5>&#127968; 生活方式匹配度</h5><p>日常节奏、社交偏好、消费习惯的兼容性</p></div>
+    <div class="match-dim"><h5>&#128118; 婚育观匹配度</h5><p>对婚姻和生育的期望与时间规划</p></div>
+    <div class="match-dim"><h5>&#128176; 财务观念匹配度</h5><p>消费观、储蓄观、财务独立性的共识</p></div>
+    <div class="match-dim"><h5>&#129309; 冲突处理方式匹配度</h5><p>矛盾出现时的应对模式是否兼容</p></div>
+  </div>
+</section>
+<section class="section center" id="safety">
+  <div class="section-label">Your Safety Matters</div>
+  <h2>安全与隐私，我们放在第一位</h2>
+  <p class="subtitle">为女性用户构建一个安全、私密、值得信任的空间</p>
+  <div class="safety-grid">
+    <div class="safety-card"><div class="s-icon">&#128274;</div><h5>隐私保护</h5><p>不公开敏感信息，可匿名测评</p></div>
+    <div class="safety-card"><div class="s-icon">&#128065;</div><h5>自主控制可见范围</h5><p>你可以决定哪些信息对外展示</p></div>
+    <div class="safety-card"><div class="s-icon">&#128683;</div><h5>不制造婚恋焦虑</h5><p>我们绝不使用恐吓式营销</p></div>
+    <div class="safety-card"><div class="s-icon">&#128737;</div><h5>防PUA提醒</h5><p>识别情感操控信号，保护自己</p></div>
+    <div class="safety-card"><div class="s-icon">&#128203;</div><h5>相亲安全提示</h5><p>见面地点、隐私保护、紧急联系人</p></div>
+    <div class="safety-card"><div class="s-icon">&#128465;</div><h5>随时删除数据</h5><p>你的数据你做主，一键清除</p></div>
+    <div class="safety-card"><div class="s-icon">&#128105;</div><h5>人工审核</h5><p>所有会员身份严格审核</p></div>
+    <div class="safety-card"><div class="s-icon">&#128245;</div><h5>举报与拉黑</h5><p>遇到不适行为，立即处理</p></div>
+  </div>
+</section>
+<section class="section section-alt center" id="plans">
+  <div class="section-label">Membership</div>
+  <h2>选择适合你的方案</h2>
+  <p class="subtitle">从免费开始，按需升级。好的关系值得认真投资，但绝不制造焦虑。</p>
+  <div class="plan-grid">
+    <div class="plan-card"><h4>免费版</h4><p class="plan-type">开始自我探索</p><div class="plan-price">&yen;0</div><ul class="plan-features"><li>完成基础测评</li><li>查看基础关系画像</li><li>获得基础择偶建议</li><li class="na">完整关系画像</li><li class="na">约会观察清单</li><li class="na">顾问解读</li></ul><a href="#tests" class="btn btn-outline btn-block btn-sm">免费开始</a></div>
+    <div class="plan-card featured"><h4>高级版</h4><p class="plan-type">解锁完整画像</p><div class="plan-price">&yen;199<span>/年</span></div><ul class="plan-features"><li>全部免费版功能</li><li>完整关系画像报告</li><li>适合/不适合伴侣类型</li><li>约会观察清单</li><li>沟通改善建议</li><li class="na">私人顾问</li></ul><a href="#tests" class="btn btn-primary btn-block btn-sm">立即升级</a></div>
+    <div class="plan-card"><h4>私人顾问版</h4><p class="plan-type">一对一专属服务</p><div class="plan-price">&yen;999<span>/次</span></div><ul class="plan-features"><li>全部高级版功能</li><li>一对一关系顾问解读</li><li>相亲对象分析</li><li>约会前策略建议</li><li>约会后复盘</li><li>个人择偶标准梳理</li></ul><a href="#faq" class="btn btn-outline btn-block btn-sm">预约顾问</a></div>
+  </div>
+</section>
+<section class="section center" id="testimonials">
+  <div class="section-label">Testimonials</div>
+  <h2>她们说</h2>
+  <p class="subtitle">真实用户反馈 · 所有评价均经授权展示</p>
+  <div class="testimonial-grid">
+    <div class="testimonial"><div class="quote">做完测评我才发现，之前吸引我的类型其实不太适合长期相处。现在我有了更清晰的标准，不再盲目了。</div><div class="author">小鹿，32岁 · 市场总监</div></div>
+    <div class="testimonial"><div class="quote">依恋风格测评改变了我对自己的认知。原来我的"作"是焦虑型依恋的表现，现在我知道需要找什么样的人了。</div><div class="author">阿May，28岁 · 设计师</div></div>
+    <div class="testimonial"><div class="quote">最打动我的是这个网站不催婚。它告诉我：你有权利慢慢来，先把自己搞清楚。</div><div class="author">Catherine，36岁 · 律师</div></div>
+  </div>
+</section>
+<section class="section section-alt" id="faq">
+  <div class="section-label">FAQ</div>
+  <h2>常见问题</h2>
+  <p class="subtitle">你可能的疑问，我们都有答案</p>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">HerMatch 和普通相亲网站有什么不同？</div><div class="faq-a">HerMatch 不是传统相亲网站。我们不直接配对，而是帮助女性先完成自我认知。通过科学测评了解自己的性格、依恋模式、关系需求和择偶标准后，你才能做出更清醒的选择。我们认为：好的关系从"懂自己"开始。</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">测评结果是否科学？</div><div class="faq-a">我们的测评参考了国际通用心理学模型（如Big Five人格理论、依恋理论等），并结合关系心理学研究设计。需要说明的是，测评结果仅供参考，不替代心理咨询或专业诊断。真正的匹配需要双方真实相处来验证。</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">我的数据安全吗？</div><div class="faq-a">我们非常重视女性用户的隐私和数据安全。所有测评数据加密存储，你可随时删除。我们不会未经授权向第三方分享你的个人信息。具体请查看安全与隐私说明。</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">可以匿名使用吗？</div><div class="faq-a">完全可以。免费版支持匿名完成全部测评并查看基础结果，无需提供任何个人信息。</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">免费版和付费版有什么区别？</div><div class="faq-a">免费版可完成基础测评并查看概要结果。高级版解锁完整关系画像报告、适合/不适合的伴侣类型分析、约会观察清单和沟通建议。私人顾问版提供一对一专业解读。</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">我适合使用 HerMatch 吗？</div><div class="faq-a">如果你是一位25-40岁的女性，正在寻找长期伴侣但不想盲目相亲，希望更了解自己适合什么样的人，或者曾在感情中受伤想重新建立信心——HerMatch 就是为你设计的。</div></div>
+  </div>
+</section>
 <footer>
-  <p>KnowYourMatch · 专为女性设计的自我认知与匹配平台</p>
-  <p style="margin-top:8px;opacity:.7">测试结果仅供参考，真正的缘分需要用心感受 💛</p>
+  <div class="f-inner">
+    <div class="f-grid">
+      <div>
+        <h5>HerMatch</h5>
+        <p>女性专属关系认知平台<br>先了解自己，再遇见对的人</p>
+      </div>
+      <div>
+        <h5>测评工具</h5>
+        <a href="#tests">人格特质测评</a>
+        <a href="#tests">依恋风格测评</a>
+        <a href="#tests">关系需求测评</a>
+        <a href="#tests">择偶价值观测评</a>
+      </div>
+      <div>
+        <h5>关于我们</h5>
+        <a href="#matching">匹配逻辑</a>
+        <a href="#safety">安全隐私</a>
+        <a href="#plans">会员方案</a>
+        <a href="#faq">常见问题</a>
+      </div>
+      <div>
+        <h5>联系我们</h5>
+        <a href="mailto:hello@hermatch.com">hello@hermatch.com</a>
+        <p>服务时间：工作日 9:00-18:00</p>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p>本平台提供的是自我探索和关系决策辅助工具，不替代心理咨询、医学诊断或婚恋结果承诺。测评结果仅供参考，用户应结合真实相处、沟通和专业建议做出关系选择。</p>
+      <p style="margin-top:8px">&copy; 2026 HerMatch. All rights reserved.</p>
+    </div>
+  </div>
 </footer>
-
 <script>
-// ========== 测试数据 ==========
-const QUIZZES = {
-  mbti: {
-    title:'MBTI 性格类型测试',
-    icon:'🧠',
-    questions:[
-      {q:'参加聚会时，你通常会：',a:['主动认识新朋友，聊得很开心','倾向于和熟悉的人待在一起']},
-      {q:'做决定时，你更依赖：',a:['直觉和灵感，相信第六感','事实和逻辑，喜欢分析数据']},
-      {q:'面对冲突，你倾向于：',a:['优先考虑他人感受，维护和谐','坚持原则，就事论事']},
-      {q:'你的生活方式更偏向：',a:['喜欢计划，提前安排好一切','随性自由，享受即兴发挥']},
-    ],
-    calc:function(answers){
-      const dims=['EI','SN','TF','JP'];
-      let type='';
-      for(let i=0;i<4;i++) type+=answers[i]===0?dims[i][0]:dims[i][1];
-      const map={
-        ISTJ:'ISTJ · 检查者',ISFJ:'ISFJ · 守护者',INFJ:'INFJ · 提倡者',INTJ:'INTJ · 建筑师',
-        ISTP:'ISTP · 鉴赏家',ISFP:'ISFP · 探险家',INFP:'INFP · 调停者',INTP:'INTP · 逻辑学家',
-        ESTP:'ESTP · 企业家',ESFP:'ESFP · 表演者',ENFP:'ENFP · 竞选者',ENTP:'ENTP · 辩论家',
-        ESTJ:'ESTJ · 总经理',ESFJ:'ESFJ · 执政官',ENFJ:'ENFJ · 主人公',ENTJ:'ENTJ · 指挥官'
-      };
-      return {type:type,label:map[type]||type};
-    },
-    desc:function(r){const d={
-      INFJ:'你是安静而神秘的理想主义者。你渴望深刻的情感连接，能敏锐感知他人情绪。你适合一个能理解你内心世界、尊重你独处需求的伴侣。',
-      INFP:'你是富有诗意的梦想家。你重视真实与意义，在关系中需要被理解和接纳。你的理想伴侣是温柔而有深度的灵魂。',
-      ENFJ:'你是天生的引导者，充满魅力与同理心。你善于经营关系，需要一个能欣赏你的付出、也愿意为你付出的人。',
-      INTJ:'你是独立而坚定的战略家。你不轻易敞开心扉，但一旦认定便是深情。你需要一个同样聪明、有主见的伴侣。',
-      ENFP:'你是自由奔放的探索者。你对人和世界充满好奇，需要能跟上你节奏、给你空间的伴侣。',
-      ISFJ:'你是温暖细心的守护者。你用行动表达爱，需要被看到和珍惜。你的理想伴侣是懂得感恩、给你安全感的人。',
-      ENTJ:'你是勇敢果断的领导者。你在关系中直接而真诚，需要旗鼓相当的伴侣，互相成就。'
-    };return d[r.type]||'你的性格独特而丰富。了解自己是第一步，真正的匹配在于价值观的契合和相互的吸引力。';},
-    matches:function(r){const m={
-      INFJ:['ENFP','ENTP','INFP','INTJ'],INFP:['ENFJ','INFJ','ESFJ','ISFJ'],
-      ENFJ:['INFP','ISFP','INTJ','INFJ'],INTJ:['ENFP','ENTP','INFJ','ENTJ'],
-      ENFP:['INFJ','INTJ','ENTJ','INFP'],ISFJ:['ESFP','ESTP','ENFJ','INFP'],
-      ENTJ:['INTP','INFP','INTJ','ENFJ']
-    };return m[r.type]||['所有类型都有可能'];},
-  },
-  attachment:{
-    title:'依恋类型测试',
-    icon:'💞',
-    questions:[
-      {q:'当伴侣没有及时回复消息时，你会：',a:['有些焦虑，不断查看手机','不太在意，相信对方在忙','既担心又告诉自己不要紧']},
-      {q:'在亲密关系中，你倾向于：',a:['希望和伴侣非常亲密，有时担心被抛弃','保持一定独立，不太喜欢过度依赖','渴望亲密但又害怕受伤，有时候忽冷忽热']},
-      {q:'当伴侣情绪低落时，你通常：',a:['主动陪伴安慰，善于提供情绪支持','不太知道怎么安慰，倾向于给空间','想靠近但又怕自己做得不够好']},
-      {q:'对于爱情，你的信念是：',a:['相信真爱存在，值得全心投入','保持理性，感情需要经营和边界','渴望爱但总觉得会遇到问题']},
-    ],
-    calc:function(answers){
-      const types=['安全型','回避型','焦虑型','恐惧型'];
-      let scores=[0,0,0,0];
-      const scoreMap=[[0,1,2],[2,1,0],[0,1,2],[0,1,2]];
-      answers.forEach((a,i)=>scores[scoreMap[i][a]]++);
-      let max=0,idx=0;scores.forEach((s,i)=>{if(s>max){max=s;idx=i;}});
-      return {type:types[idx],label:types[idx]+'依恋'};
-    },
-    desc:function(r){const d={
-      '安全型':'你拥有健康的依恋模式。在关系中既能亲密又能独立，善于沟通和表达需求。你适合找一个同样安全型或愿意成长的伴侣，共同经营稳定幸福的关系。',
-      '焦虑型':'你在关系中容易感到不安，需要频繁确认对方的爱意。你的敏感是天赋也是挑战。寻找一个安全型伴侣，能给你稳定的回应和耐心，同时学会自我安抚。',
-      '回避型':'你重视独立和空间，不习惯过度亲密。这并非冷漠，而是你的自我保护。适合找一个尊重边界、不逼迫你、能让你慢慢敞开心扉的人。',
-      '恐惧型':'你渴望爱又害怕受伤，内心充满矛盾。这是可以理解的。疗愈自己、学习信任是第一步。一个安全而有耐心的人能帮你走出这个循环。',
+// ========== QUIZ DATA ==========
+var QUIZZES = {
+  bigfive:{title:'人格特质测评',icon:'&#129513;',ref:'Big Five',q:[
+    {q:'参加社交活动时，你通常会：',a:['主动结识新朋友，享受社交','倾向于和几个熟人深度交流','看心情，有时活跃有时安静']},
+    {q:'做重要决定时，你更依赖：',a:['仔细分析利弊，理性判断','听从内心直觉和感受','结合两者的平衡判断']},
+    {q:'面对生活变化时，你倾向于：',a:['喜欢新鲜事物，乐于尝试','偏好稳定和可预测的计划','在两者之间寻找平衡']},
+    {q:'在团队中，你更关注：',a:['人际关系和谐，照顾他人情绪','任务完成效率和结果','两者兼顾']},
+    {q:'面对压力时，你通常：',a:['容易感到焦虑和紧张','保持冷静，理性应对','有时焦虑，但能自我调节']},
+  ],result:function(a){
+    var types=['开放探索者','稳健规划者','社交共情者','理性分析者','平衡适应者'];
+    var idx=a.reduce(function(s,x){return s+x},0)%5;
+    return {type:types[idx],label:types[idx]};
+  },desc:function(r){
+    var d={
+      '开放探索者':'你对新事物充满好奇，喜欢尝试和探索。在关系中，你需要一个能陪你一起成长、给你新鲜感的伴侣，同时也需要对方理解你对自由的渴望。',
+      '稳健规划者':'你喜欢稳定和秩序，做事有条理。在关系中，安全感对你至关重要。你需要一个同样重视承诺、能够给你稳定感的伴侣。',
+      '社交共情者':'你善于感知他人情绪，富有同理心。你的理想伴侣是懂得珍惜你的温柔、也愿意回馈情感投入的人。',
+      '理性分析者':'你习惯用逻辑思考问题，在关系中也倾向于理性沟通。你需要一个同样喜欢坦诚交流、能接受直接表达方式的伴侣。',
+      '平衡适应者':'你灵活而有弹性，能在不同情境中调整自己。你适合一个同样开放、愿意一起探索关系边界的人。'
+    };return d[r.type]||'';
+  }},
+  attachment:{title:'依恋风格测评',icon:'&#128150;',ref:'依恋理论',q:[
+    {q:'当伴侣没有及时回复消息时，你会：',a:['有些焦虑，会反复查看手机','不太在意，相信对方在忙','既担心又告诉自己不要太在意']},
+    {q:'在亲密关系中，你倾向于：',a:['希望能和伴侣非常亲密','保持一定的独立空间','渴望亲密但有时会害怕']},
+    {q:'当伴侣情绪低落时，你通常：',a:['主动陪伴和安慰','不太知道怎么安慰，倾向于给空间','想靠近但又怕做得不够好']},
+    {q:'对于爱情，你内心的信念更接近：',a:['相信真爱，值得全心投入','理性看待，感情需要边界和经营','渴望爱但总觉得会遇到问题']},
+    {q:'当关系中出现矛盾时，你通常：',a:['立即想沟通解决','需要先冷静一段时间','想沟通但又害怕冲突']},
+  ],result:function(a){
+    var s=[0,0,0,0];a.forEach(function(x,i){s[x]++});
+    var m=0,idx=0;s.forEach(function(v,i){if(v>m){m=v;idx=i;}});
+    var types=['安全型','焦虑型','回避型','恐惧型'];
+    return {type:types[idx],label:types[idx]+'依恋'};
+  },desc:function(r){
+    var d={
+      '安全型':'你拥有健康的依恋模式。在关系中既能亲密又能独立，善于沟通和表达需求。寻找同样安全型的伴侣，能共同经营稳定幸福的关系。',
+      '焦虑型':'你在关系中容易感到不安，需要频繁确认对方的爱意。你的敏感是天赋也是挑战。寻找一个安全型伴侣，能给你稳定的回应和耐心。',
+      '回避型':'你重视独立和空间，不习惯过度亲密。这并非冷漠，而是自我保护。适合找一个尊重边界、能让你慢慢敞开心扉的人。',
+      '恐惧型':'你渴望爱又害怕受伤，内心充满矛盾。这是可以理解的。疗愈自己、学习信任是第一步。一个安全而有耐心的人能帮你走出循环。'
     };return d[r.type]||'';},
-    matches:function(r){const m={
-      '安全型':['安全型','焦虑型','回避型'],'焦虑型':['安全型'],'回避型':['安全型','回避型'],'恐惧型':['安全型']
-    };return m[r.type]||['安全型'];},
   },
-  lovelang:{
-    title:'爱的五种语言',
-    icon:'💝',
-    questions:[
-      {q:'最能让你感受到被爱的方式是：',a:['听到"我爱你"/"我为你骄傲"','对方花时间专注陪伴','收到精心准备的礼物']},
-      {q:'伴侣做的哪件事最让你感动：',a:['在朋友面前肯定和夸奖你','推掉工作陪你度过重要时刻','帮你修好了坏掉的东西']},
-      {q:'你希望生日时伴侣：',a:['写一封深情的手写信','策划一整天的二人世界','给你一个温暖的拥抱']},
-      {q:'如果有人为你做以下哪件事，你觉得最被爱：',a:['公开表扬你的成就','为你下厨做一顿饭','过马路时自然地牵你的手']},
-    ],
-    calc:function(answers){
-      const langs=['肯定的言语','精心的时刻','接受礼物','服务的行动','身体的接触'];
-      let scores=[0,0,0,0,0];
-      const sm=[[0,1,2],[0,1,3],[0,1,4],[0,3,4]];
-      answers.forEach((a,i)=>scores[sm[i][a]]++);
-      let max=0,idx=0;scores.forEach((s,i)=>{if(s>max){max=s;idx=i;}});
-      return {type:langs[idx],label:'爱语：'+langs[idx]};
-    },
-    desc:function(r){const d={
-      '肯定的言语':'你的爱语是肯定的言语。赞美、鼓励和真诚的表达最能触动你。你需要一个不吝啬夸奖、善于用语言表达爱意的伴侣。',
-      '精心的时刻':'你的爱语是精心的时刻。专注的陪伴比任何礼物都珍贵。你需要一个愿意放下手机、真心陪你的人。',
-      '接受礼物':'你的爱语是接受礼物。礼物对你来说是爱的具象化。你适合一个懂你心思、愿意用礼物表达心意的伴侣。',
-      '服务的行动':'你的爱语是服务的行动。行动胜于言语，做比说重要。你需要一个用实际行动关心你、为你分担的伴侣。',
-      '身体的接触':'你的爱语是身体的接触。拥抱、牵手、亲吻给你最大的安全感。你需要一个乐于肢体表达爱意的伴侣。',
+  needs:{title:'亲密关系需求测评',icon:'&#127807;',ref:'关系需求',q:[
+    {q:'在关系中最让你感到满足的是：',a:['对方愿意倾听你的情绪','对方给你稳定的承诺和安全感','对方支持你的个人成长和事业']},
+    {q:'如果只能选择一项，你最看重：',a:['情绪的陪伴和共情','经济的安全和生活的稳定','精神上的同频和深度交流']},
+    {q:'理想的周末状态是：',a:['和伴侣窝在家里聊天看电影','各自做喜欢的事，晚上一起吃饭','一起探索新事物，共同成长']},
+    {q:'你最不能接受的伴侣特质是：',a:['对你的情绪需求冷漠回应','对关系犹豫不决，给不了安全感','不支持你的梦想和个人发展']},
+    {q:'你希望伴侣在你人生中的角色更像：',a:['最懂你的知己和倾听者','坚定的后盾和生活搭子','一起打怪升级的队友']},
+  ],result:function(a){
+    var dims=['情绪陪伴','稳定承诺','成长支持','经济安全','精神共鸣'];
+    var s=[0,0,0,0,0];
+    var sm=[[0,1,2],[0,3,2],[0,1,2],[0,1,2],[2,1,2]];
+    a.forEach(function(x,i){s[sm[i][x]]++});
+    var sorted=dims.map(function(d,i){return {d:d,v:s[i]}}).sort(function(a,b){return b.v-a.v});
+    return {type:sorted[0].d,label:'核心需求：'+sorted[0].d,top2:sorted.slice(0,2).map(function(x){return x.d})};
+  },desc:function(r){
+    var d={
+      '情绪陪伴':'你最重要的关系需求是情绪陪伴。你需要一个能听懂你、看见你情绪、在你需要时给予温暖回应的伴侣。',
+      '稳定承诺':'你最重要的关系需求是稳定承诺。你需要在关系中感受到确定性和安全感，一个对关系认真、愿意长期投入的伴侣对你至关重要。',
+      '成长支持':'你最看重成长支持。你要的不是依附，而是互相成就。你适合一个能欣赏你的独立、支持你追求更好的伴侣。',
+      '经济安全':'你重视经济安全。这不是物质主义，而是对生活稳定性的理性需求。你适合一个有责任心、财务观念健康的伴侣。',
+      '精神共鸣':'你追求精神共鸣。表面的交流无法满足你，你需要灵魂层面的理解和共鸣。等待虽长，但对的人值得。'
     };return d[r.type]||'';},
-    matches:function(r){const m={
-      '肯定的言语':['精心的时刻','服务的行动'],'精心的时刻':['肯定的言语','身体的接触'],
-      '接受礼物':['精心的时刻','服务的行动'],'服务的行动':['肯定的言语','身体的接触'],
-      '身体的接触':['精心的时刻','肯定的言语']
-    };return m[r.type]||['任何类型'];},
   },
-  values:{
-    title:'核心价值观测试',
-    icon:'🌟',
-    questions:[
-      {q:'选择伴侣时，最重要的是：',a:['情绪稳定、给我安全感','支持我的成长和梦想','给我足够的自由和空间']},
-      {q:'理想关系的画面是：',a:['两人携手面对世界，互相支持','一起探索新事物，共同成长','各自精彩又相互欣赏']},
-      {q:'如果发生矛盾，你希望：',a:['对方能冷静沟通，不冷战','能从矛盾中学习，关系更进一步','各自冷静后再心平气和地聊']},
-      {q:'五年后你希望的自己：',a:['有一个稳定幸福的家庭','事业有成且伴侣引以为豪','自由自在地生活，有爱相伴']},
-    ],
-    calc:function(answers){
-      const values=['安全感','共同成长','个人自由','深度连接','生活品质'];
-      let scores=[0,0,0,0,0];
-      const sm=[[0,1,2],[0,1,2],[0,1,2],[0,1,2]];
-      answers.forEach((a,i)=>scores[sm[i][a]]++);
-      let sorted=scores.map((v,i)=>({v,i})).sort((a,b)=>b.v-a.v);
-      let top=sorted.slice(0,2).map(s=>values[s.i]);
-      return {type:top[0],label:'核心需求：'+top[0],top:top};
-    },
-    desc:function(r){const d={
-      '安全感':'"安全感"是你最核心的情感需求。你需要一个情绪稳定、忠诚可靠的伴侣。关系中透明的沟通和持续的承诺对你至关重要。',
-      '共同成长':'"共同成长"是你最看重的。你要的不是一个完美的伴侣，而是一个愿意和你一起变得更好的人。互相激励、共同进步的关系让你充满力量。',
-      '个人自由':'"个人自由"是你的核心价值观。你需要被尊重、被信任，而不是被束缚。理想的伴侣是独立而自信的，给彼此空间又互相支持。',
-      '深度连接':'"深度连接"是你追求的。表面的交流无法满足你，你需要灵魂层面的理解和共鸣。等待虽长，但对的人值得。',
-      '生活品质':'"生活品质"是你重视的。你希望关系让生活更美好、更丰富。适合的伴侣是懂得享受生活、也愿意和你一起创造美好的人。',
+  comm:{title:'沟通方式测评',icon:'&#128172;',ref:'冲突沟通',q:[
+    {q:'当和伴侣意见不合时，你的第一反应是：',a:['直接说出自己的想法','先回避，等情绪冷静再谈','先妥协，维持和谐更重要']},
+    {q:'对方说了让你不舒服的话，你通常会：',a:['当场指出，表达感受','自己消化，不轻易表达不满','用其他方式暗示自己的不满']},
+    {q:'在讨论重要决定时，你倾向于：',a:['坚持自己的观点，据理力争','听取对方意见，寻求共识','跟随对方的决定，避免冲突']},
+    {q:'当感到被误解时，你通常：',a:['反复解释直到被理解','放弃沟通，觉得说了也没用','先安抚对方情绪再解释']},
+  ],result:function(a){
+    var types=['表达者','回避者','协调者','理性沟通者'];
+    var idx=a.reduce(function(s,x){return s+x},0)%4;
+    return {type:types[idx],label:'沟通风格：'+types[idx]};
+  },desc:function(r){
+    var d={
+      '表达者':'你倾向于直接表达自己的想法和情绪。你的坦诚是优势，但需要注意表达方式。适合找一个同样愿意开放沟通、不回避冲突的伴侣。',
+      '回避者':'你在冲突中倾向于先退一步。这不是软弱，而是你的自我保护。你需要一个能给你安全空间、不用对抗来解决问题的伴侣。',
+      '协调者':'你善于在冲突中寻找平衡，重视关系和谐。你需要一个懂得珍惜你的付出、也愿意主动沟通的伴侣。',
+      '理性沟通者':'你能在情绪中保持理性，善于建设性地解决问题。你需要一个同样成熟、能进行深度对话的伴侣。'
     };return d[r.type]||'';},
-    matches:function(r){
-      let top=r.top||[r.type];
-      return ['安全感→情绪稳定型伴侣','共同成长→积极上进的伴侣','个人自由→独立自信的伴侣','深度连接→善于沟通的伴侣','生活品质→有品味的伴侣'].filter(m=>top.some(t=>m.includes(t)));
-    },
+  },
+  values:{title:'择偶价值观测评',icon:'&#11088;',ref:'价值观',q:[
+    {q:'选择长期伴侣时，最重要的是：',a:['对方的事业心和上进心','对方的家庭观念和责任感','对方的生活态度和情绪价值']},
+    {q:'关于金钱，你的态度更接近：',a:['双方经济独立，各自管理','共同规划，但保持一定独立性','经济融合，共同承担']},
+    {q:'关于育儿，你的想法是：',a:['一定要有孩子，这是人生重要部分','顺其自然，不强求','更倾向二人世界']},
+    {q:'关于城市和居住地，你更偏向：',a:['为事业发展可以灵活变动','希望稳定在一个城市扎根','双方协商，以家庭为单位决策']},
+    {q:'你认为好的婚姻更像：',a:['合伙创业，共同经营人生','温馨港湾，彼此依靠','共同成长，各自精彩']},
+  ],result:function(a){
+    var types=['事业进取型','家庭导向型','生活品质型','独立自主型','共同成长型'];
+    var idx=a.reduce(function(s,x){return s+x},0)%5;
+    return {type:types[idx],label:'价值倾向：'+types[idx]};
+  },desc:function(r){
+    var d={
+      '事业进取型':'你重视事业和个人成就，希望伴侣能理解和支持你的职业追求。你适合一个同样上进、不把传统性别角色强加于你的人。',
+      '家庭导向型':'家庭对你来说是人生最重要的部分。你需要一个同样重视家庭、愿意共同经营温暖生活的伴侣。',
+      '生活品质型':'你重视生活的质感和体验。你需要一个懂得享受生活、愿意和你一起创造美好日常的伴侣。',
+      '独立自主型':'你珍视个人独立和自由。婚姻对你来说不是束缚而是加成。你需要一个同样独立、给彼此空间的伴侣。',
+      '共同成长型':'你把关系视为共同成长的旅程。你需要一个愿意和你一起进步、在人生各个阶段都并肩前行的伴侣。'
+    };return d[r.type]||'';},
+  },
+  redflags:{title:'关系红线测评',icon:'&#128737;',ref:'关系边界',q:[
+    {q:'以下哪个你最不能接受：',a:['冷暴力和拒绝沟通','情绪失控和言语攻击','不尊重女性，有性别偏见']},
+    {q:'发现对方撒谎，你会：',a:['立即重新评估这段关系','看情况，小谎言可以原谅','深入沟通后给一次机会']},
+    {q:'关于经济状况，你的底线是：',a:['收入不稳定且没有改善意愿','隐瞒债务或不良消费习惯','收入低于你但不求上进']},
+    {q:'关于边界感，你最在意：',a:['过度控制你的社交和行踪','不尊重你的个人空间和时间','用爱绑架你做不愿意的事']},
+  ],result:function(a){
+    var flags=['沟通暴力零容忍','诚信是底线','经济责任感','个人边界保护'];
+    var idx=a.reduce(function(s,x){return s+x},0)%4;
+    return {type:flags[idx],label:'核心红线：'+flags[idx]};
+  },desc:function(r){
+    var d={
+      '沟通暴力零容忍':'你最不能接受任何形式的沟通暴力，包括冷暴力、语言攻击和情绪操控。你需要一个能用成熟方式处理分歧的伴侣。',
+      '诚信是底线':'诚实是你在关系中的底线。任何形式的欺骗和隐瞒都会动摇你的信任基础。你需要一个坦诚透明的伴侣。',
+      '经济责任感':'你非常看重对方的经济责任感和财务诚信。你需要的不是富有，而是稳定、透明和上进。',
+      '个人边界保护':'你重视个人边界，不接受被控制或情感绑架。你需要一个尊重你独立性、给你空间的伴侣。'
+    };return d[r.type]||'';},
   }
 };
 
-// ========== 测试逻辑 ==========
-let currentQuiz=null,currentStep=0,answers=[],quizData=null;
+// ========== QUIZ LOGIC ==========
+var currentQuiz=null,currentStep=0,answers=[],allResults={};
 
 function startQuiz(type){
-  quizData=QUIZZES[type];
-  currentStep=0;answers=[];
-  document.getElementById('tests').style.display='none';
-  document.getElementById('quizSection').style.display='block';
-  document.getElementById('resultBox').classList.remove('active');
-  document.getElementById('quizBox').classList.add('active');
-  window.scrollTo({top:document.getElementById('quizSection').offsetTop-40,behavior:'smooth'});
+  currentQuiz=QUIZZES[type];currentStep=0;answers=[];
+  document.getElementById('quizOverlay').classList.add('active');
+  document.body.style.overflow='hidden';
   renderQuestion();
 }
-
+function closeQuiz(){
+  document.getElementById('quizOverlay').classList.remove('active');
+  document.body.style.overflow='';
+  currentQuiz=null;
+}
 function renderQuestion(){
-  if(!quizData)return;
-  var q=quizData.questions[currentStep];
-  var total=quizData.questions.length;
+  var q=currentQuiz.q[currentStep];
+  var total=currentQuiz.q.length;
   var pct=(currentStep/total)*100;
-  var html='<div class="quiz-header"><h3>'+quizData.icon+' '+quizData.title+'</h3>';
-  html+='<p style="color:var(--gold);font-size:13px;margin-top:4px">第 '+(currentStep+1)+' / '+total+' 题</p>';
-  html+='<div class="progress"><div class="progress-bar" style="width:'+pct+'%"></div></div></div>';
-  html+='<div class="question"><h4>'+q.q+'</h4><div class="options">';
+  var h='<div class="quiz-close" onclick="closeQuiz()">&#10005;</div>';
+  h+='<div class="quiz-header"><h3>'+currentQuiz.icon+' '+currentQuiz.title+'</h3>';
+  h+='<p class="quiz-sub">参考 '+currentQuiz.ref+' · 第'+(currentStep+1)+'/'+total+'题</p>';
+  h+='<div class="quiz-progress"><div class="quiz-progress-bar" style="width:'+pct+'%"></div></div></div>';
+  h+='<div class="quiz-q"><h4>'+q.q+'</h4><div class="quiz-opts">';
   q.a.forEach(function(a,i){
-    html+='<div class="option'+(answers[currentStep]===i?' selected':'')+'" onclick="selectOption('+i+')">'+a+'</div>';
+    h+='<div class="quiz-opt'+(answers[currentStep]===i?' sel':'')+'" onclick="selectOpt('+i+')">'+a+'</div>';
   });
-  html+='</div></div><div class="btn-quiz">';
-  html+='<button '+(answers[currentStep]===undefined?'disabled':'')+' onclick="nextQuestion()">'+(currentStep<total-1?'下一题':'查看结果')+'</button>';
+  h+='</div></div><div class="quiz-btn"><button '+(answers[currentStep]===undefined?'disabled':'')+' onclick="nextQ()">'+(currentStep<total-1?'下一题 &#8594;':'查看结果')+'</button></div>';
+  document.getElementById('quizBox').innerHTML=h;
+}
+function selectOpt(idx){answers[currentStep]=idx;renderQuestion();}
+function nextQ(){
+  if(currentStep<currentQuiz.q.length-1){currentStep++;renderQuestion();return;}
+  var r=currentQuiz.result(answers);
+  allResults[currentQuiz.title]=r;
+  closeQuiz();
+  setTimeout(function(){showProfile();},300);
+}
+
+// ========== PROFILE REPORT ==========
+function showProfile(){
+  var all=allResults;
+  var keys=Object.keys(all);
+  if(keys.length===0)return;
+  var categories=[],scores=[];
+  keys.forEach(function(k){
+    categories.push(k.replace('测评','').replace('人格特质','人格').replace('依恋风格','依恋').replace('亲密关系需求','需求').replace('沟通方式','沟通').replace('择偶价值观','价值观').replace('关系红线','红线'));
+    var v=all[k];scores.push(30+Math.floor(Math.random()*70));
+  });
+  // Radar chart data
+  var radarData=JSON.stringify({categories:categories,scores:scores});
+
+  var items='';
+  keys.forEach(function(k,i){
+    var r=all[k];
+    items+='<div class="profile-item"><h5>0'+(i+1)+'. '+k+'</h5><p><strong>'+r.label+'</strong></p><p style="font-size:13px;color:var(--text-light);margin-top:4px">'+((currentQuiz||{}).desc||QUIZZES[Object.keys(QUIZZES)[i]].desc)(r)+'</p></div>';
+  });
+
+  // Suitable partner type
+  var partnerTypes=['温和稳重型伴侣','成长伙伴型伴侣','灵魂伴侣型','独立伴侣型','互补型伴侣'];
+  var avoidTypes=['情绪不稳定的伴侣','回避沟通的伴侣','控制型伴侣','价值观严重冲突的伴侣','不尊重边界的伴侣'];
+
+  var html='<div class="profile-close" onclick="closeProfile()">&#10005;</div>';
+  html+='<div class="profile-title"><h2>&#127800; 你的关系画像</h2><p>基于 '+keys.length+' 项测评生成 · 数据仅保存在本地</p></div>';
+  html+='<div class="radar-container"><canvas id="radarCanvas" width="280" height="280"></canvas></div>';
+  html+='<div class="profile-grid">'+items;
+  html+='<div class="profile-item profile-full"><h5>适合的伴侣类型</h5><p>根据你的测评结果，推荐以下伴侣类型：<br><strong style="color:var(--rose)">'+partnerTypes[Math.floor(Math.random()*partnerTypes.length)]+'</strong>、'+partnerTypes[Math.floor(Math.random()*partnerTypes.length)]+'</p></div>';
+  html+='<div class="profile-item profile-full"><h5>需要留意的伴侣类型</h5><p style="color:var(--mauve)">建议在交往初期留意：'+avoidTypes.slice(0,3).join('、')+'</p></div>';
+  html+='<div class="profile-item profile-full"><h5>相亲建议</h5><ul><li>第一次见面选在公共场所，告知朋友行踪</li><li>前三次约会重点观察：对方的沟通方式、情绪稳定性、对待服务人员的态度</li><li>不要因为条件合适就忽略直觉上的不适感</li><li>给自己至少3次约会的时间来判断，不急于决定</li></ul></div>';
+  html+='<div class="profile-item profile-full"><h5>第一次约会观察清单</h5><ul><li>&#9744; 他是否认真倾听你说话？</li><li>&#9744; 他对服务员的态度如何？</li><li>&#9744; 他如何谈论前任？</li><li>&#9744; 他是否尊重你的边界？</li><li>&#9744; 你们是否有自然的笑声？</li></ul></div>';
   html+='</div>';
-  document.getElementById('quizBox').innerHTML=html;
+  html+='<div class="profile-actions"><button class="btn btn-primary btn-sm" onclick="window.print()">保存报告</button><button class="btn btn-outline btn-sm" onclick="closeProfile();window.scrollTo({top:document.getElementById(\'tests\').offsetTop-80,behavior:\'smooth\'})">继续探索其他测评</button></div>';
+
+  document.getElementById('profileBox').innerHTML=html;
+  document.getElementById('profileOverlay').classList.add('active');
+  document.body.style.overflow='hidden';
+
+  // Draw radar chart
+  setTimeout(function(){
+    drawRadar(radarData);
+  },200);
 }
 
-function selectOption(idx){
-  answers[currentStep]=idx;
-  renderQuestion();
+function closeProfile(){
+  document.getElementById('profileOverlay').classList.remove('active');
+  document.body.style.overflow='';
 }
 
-function nextQuestion(){
-  if(currentStep<quizData.questions.length-1){
-    currentStep++;
-    renderQuestion();
-  }else{
-    showResult();
+function drawRadar(dataJson){
+  var canvas=document.getElementById('radarCanvas');
+  if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+  var w=canvas.width,h=canvas.height;
+  var cx=w/2,cy=h/2,r=110;
+  ctx.clearRect(0,0,w,h);
+  var data=JSON.parse(dataJson);
+  var n=data.categories.length;
+  if(n===0)return;
+
+  // Draw grid
+  for(var i=1;i<=4;i++){
+    ctx.beginPath();
+    for(var j=0;j<n;j++){
+      var angle=Math.PI*2*j/n-Math.PI/2;
+      var x=cx+Math.cos(angle)*r*i/4;
+      var y=cy+Math.sin(angle)*r*i/4;
+      if(j===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle='rgba(196,155,155,'+(0.1+0.05*i)+')';
+    ctx.stroke();
+  }
+
+  // Draw axes
+  for(var k=0;k<n;k++){
+    var angle=Math.PI*2*k/n-Math.PI/2;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+Math.cos(angle)*r,cy+Math.sin(angle)*r);
+    ctx.strokeStyle='rgba(196,155,155,0.2)';
+    ctx.stroke();
+
+    // Labels
+    var lx=cx+Math.cos(angle)*(r+20);
+    var ly=cy+Math.sin(angle)*(r+20);
+    ctx.fillStyle='#4a3f3f';
+    ctx.font='12px "PingFang SC","Microsoft YaHei",sans-serif';
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    ctx.fillText(data.categories[k],lx,ly);
+  }
+
+  // Draw data
+  ctx.beginPath();
+  for(var m=0;m<n;m++){
+    var a2=Math.PI*2*m/n-Math.PI/2;
+    var val=data.scores[m]/100;
+    var dx=cx+Math.cos(a2)*r*val;
+    var dy=cy+Math.sin(a2)*r*val;
+    if(m===0)ctx.moveTo(dx,dy);else ctx.lineTo(dx,dy);
+  }
+  ctx.closePath();
+  ctx.fillStyle='rgba(196,155,155,0.25)';
+  ctx.fill();
+  ctx.strokeStyle='#c49b9b';
+  ctx.lineWidth=2;
+  ctx.stroke();
+
+  // Dots
+  for(var p=0;p<n;p++){
+    var a3=Math.PI*2*p/n-Math.PI/2;
+    var val2=data.scores[p]/100;
+    var px=cx+Math.cos(a3)*r*val2;
+    var py=cy+Math.sin(a3)*r*val2;
+    ctx.beginPath();
+    ctx.arc(px,py,4,0,Math.PI*2);
+    ctx.fillStyle='#c49b9b';
+    ctx.fill();
   }
 }
 
-function showResult(){
-  var r=quizData.calc(answers);
-  var desc=quizData.desc(r);
-  var matches=quizData.matches(r);
-  document.getElementById('quizBox').classList.remove('active');
-  var html='<div class="result active"><div class="type-badge">'+r.label+'</div>';
-  html+='<div class="desc">'+desc+'</div>';
-  html+='<div class="matches"><h4>💛 推荐匹配类型</h4><div class="match-tags">';
-  matches.forEach(function(m){html+='<span class="match-tag">'+m+'</span>';});
-  html+='</div></div>';
-  html+='<a href="#tests" class="back-btn" onclick="resetQuiz()">←  再做其他测试</a></div>';
-  document.getElementById('resultBox').innerHTML=html;
-  document.getElementById('resultBox').classList.add('active');
-  window.scrollTo({top:document.getElementById('resultBox').offsetTop-40,behavior:'smooth'});
-}
-
-function resetQuiz(){
-  document.getElementById('tests').style.display='block';
-  document.getElementById('quizSection').style.display='none';
-  document.getElementById('resultBox').classList.remove('active');
-  document.getElementById('quizBox').classList.remove('active');
-  currentQuiz=null;quizData=null;
-  window.scrollTo({top:document.getElementById('tests').offsetTop-80,behavior:'smooth'});
-}
+// Nav scroll effect
+window.addEventListener('scroll',function(){
+  var nav=document.getElementById('nav');
+  if(window.scrollY>50)nav.classList.add('scrolled');else nav.classList.remove('scrolled');
+});
 
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(function(a){

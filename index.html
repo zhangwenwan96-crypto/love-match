@@ -154,7 +154,6 @@ footer .f-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;text
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .fade-up{animation:fadeUp .6s ease-out}
 
-/* Men's cards */
 .men-section{background:linear-gradient(180deg,var(--cream),var(--white),var(--cream))}
 .men-scroll{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
 @media(max-width:768px){.men-scroll{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;gap:16px;padding-bottom:12px}.men-scroll::-webkit-scrollbar{height:4px}.men-scroll::-webkit-scrollbar-thumb{background:var(--rose);border-radius:2px}.men-card{min-width:280px;scroll-snap-align:start}}
@@ -699,7 +698,8 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
   });
 });
-
+</script>
+<script>
 function promptMatch(){
   var o=document.createElement("div");
   o.style.cssText="position:fixed;top:0;left:0;width:100%;height:100%;z-index:300;background:rgba(45,36,36,.5);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center";
@@ -710,7 +710,7 @@ function promptMatch(){
   o.addEventListener("click",function(e){if(e.target===o)o.remove()});
   document.body.appendChild(o);
 }
-
 </script>
+
 </body>
 </html>

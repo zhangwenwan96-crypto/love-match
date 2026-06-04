@@ -153,6 +153,37 @@ footer .f-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;text
 }
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .fade-up{animation:fadeUp .6s ease-out}
+
+/* Men's cards */
+.men-section{background:linear-gradient(180deg,var(--cream),var(--white),var(--cream))}
+.men-scroll{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+@media(max-width:768px){
+  .men-scroll{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;gap:16px;padding-bottom:12px}
+  .men-scroll::-webkit-scrollbar{height:4px}
+  .men-scroll::-webkit-scrollbar-thumb{background:var(--rose);border-radius:2px}
+  .men-card{min-width:280px;scroll-snap-align:start}
+}
+.men-card{background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid rgba(200,180,180,.1);transition:all .3s;flex-shrink:0}
+.men-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(196,155,155,.12)}
+.men-avatar{width:100%;height:260px;background:linear-gradient(135deg,#e8d5d5,#d4c0c0,#c8b0b0);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.men-avatar .initials{font-size:64px;color:rgba(255,255,255,.5);font-weight:300;letter-spacing:4px}
+.men-avatar .verified{position:absolute;top:12px;right:12px;background:var(--rose);color:var(--white);font-size:11px;padding:4px 10px;border-radius:10px;letter-spacing:1px}
+.men-body{padding:24px}
+.men-body .men-name{font-size:18px;color:var(--dark);font-weight:500;margin-bottom:4px}
+.men-body .men-basic{font-size:13px;color:var(--text-light);margin-bottom:12px;line-height:1.8}
+.men-body .men-basic span{display:inline-block;margin-right:12px}
+.men-body .men-basic span::before{content:' B7';margin-right:4px;color:var(--rose)}
+.men-body .men-basic span:first-child::before{content:'';margin:0}
+.men-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.men-tag{padding:3px 10px;background:rgba(196,155,155,.08);color:var(--rose);border-radius:8px;font-size:11px;letter-spacing:.5px}
+.men-tag.cert{background:rgba(184,169,201,.15);color:var(--lavender)}
+.men-desc{font-size:13px;color:var(--text-light);line-height:1.7;margin-bottom:12px}
+.men-suitable{font-size:12px;color:var(--gold);margin-bottom:16px;line-height:1.6}
+.men-suitable strong{color:var(--rose)}
+.men-card .btn-match{display:block;width:100%;padding:10px;text-align:center;border:1.5px solid var(--rose);color:var(--rose);border-radius:24px;font-size:13px;letter-spacing:1px;cursor:pointer;transition:all .2s;background:transparent}
+.men-card .btn-match:hover{background:var(--rose);color:var(--white)}
+.men-note{text-align:center;margin-top:32px;font-size:12px;color:var(--text-light);line-height:1.8;max-width:700px;margin-left:auto;margin-right:auto}
+
 </style>
 </head>
 <body>
@@ -201,6 +232,81 @@ footer .f-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;text
     <div class="test-card" onclick="startQuiz('redflags')"><div class="t-icon">&#128737;</div><div class="t-info"><h4>关系红线测评</h4><p>明确不能接受的伴侣行为，建立个人边界感</p><span class="t-badge">约2分钟 &#183; 4题</span></div></div>
   </div>
 </section>
+<section class="section men-section" id="men">
+  <div class="section-label">Community</div>
+  <h2>不只是认识更多人，而是遇见更适合的人</h2>
+  <p class="subtitle">平台精选经过资料审核、身份认证和价值观初筛的男士用户，帮助你在更安全、更清晰的前提下了解潜在匹配对象。</p>
+  <div class="men-scroll">
+    <div class="men-card">
+      <div class="men-avatar"><div class="initials">EC</div><span class="verified">身份认证</span></div>
+      <div class="men-body">
+        <div class="men-name">Eric</div>
+        <div class="men-basic"><span>34岁</span><span>上海</span><span>183cm</span><span>海外硕士</span></div>
+        <div class="men-tags"><span class="men-tag">私募基金投资经理</span><span class="men-tag cert">收入认证</span><span class="men-tag cert">学历认证</span></div>
+        <div class="men-desc">年收入100-200万 · 滑雪、网球、红酒、旅行 · 情绪稳定，重视伴侣成长，期待长期关系。</div>
+        <div class="men-suitable">适合：重视安全感、<strong>长期关系</strong>、生活品质的女性</div>
+        <button class="btn-match" onclick="promptMatch()">查看我和他的匹配度</button>
+      </div>
+    </div>
+    <div class="men-card">
+      <div class="men-avatar"><div class="initials">AL</div><span class="verified">身份认证</span></div>
+      <div class="men-body">
+        <div class="men-name">Alex</div>
+        <div class="men-basic"><span>32岁</span><span>杭州</span><span>180cm</span><span>985本科</span></div>
+        <div class="men-tags"><span class="men-tag">AI创业联合创始人</span><span class="men-tag cert">公司认证</span><span class="men-tag cert">资产认证</span></div>
+        <div class="men-desc">年收入150万+ · 跑步、摄影、科技、咖啡 · 事业上进，同时重视家庭陪伴。</div>
+        <div class="men-suitable">适合：喜欢<strong>成长型伴侣</strong>、能接受创业节奏的女性</div>
+        <button class="btn-match" onclick="promptMatch()">查看我和他的匹配度</button>
+      </div>
+    </div>
+    <div class="men-card">
+      <div class="men-avatar"><div class="initials">DN</div><span class="verified">身份认证</span></div>
+      <div class="men-body">
+        <div class="men-name">Daniel</div>
+        <div class="men-basic"><span>36岁</span><span>北京</span><span>178cm</span><span>博士</span></div>
+        <div class="men-tags"><span class="men-tag">三甲医院外科医生</span><span class="men-tag cert">职业认证</span><span class="men-tag cert">学历认证</span></div>
+        <div class="men-desc">年收入80-120万 · 阅读、游泳、古典音乐、徒步 · 生活稳定，沟通温和，重视健康。</div>
+        <div class="men-suitable">适合：追求<strong>稳定生活</strong>、重视健康和家庭的女性</div>
+        <button class="btn-match" onclick="promptMatch()">查看我和他的匹配度</button>
+      </div>
+    </div>
+    <div class="men-card">
+      <div class="men-avatar"><div class="initials">RY</div><span class="verified">身份认证</span></div>
+      <div class="men-body">
+        <div class="men-name">Ryan</div>
+        <div class="men-basic"><span>38岁</span><span>深圳</span><span>181cm</span><span>法学硕士</span></div>
+        <div class="men-tags"><span class="men-tag">律所合伙人</span><span class="men-tag cert">职业认证</span><span class="men-tag cert">收入认证</span></div>
+        <div class="men-desc">年收入150-300万 · 帆船、阅读、艺术展、健身 · 尊重女性独立，重视沟通和承诺。</div>
+        <div class="men-suitable">适合：<strong>边界感强</strong>、理性沟通型女性</div>
+        <button class="btn-match" onclick="promptMatch()">查看我和他的匹配度</button>
+      </div>
+    </div>
+    <div class="men-card">
+      <div class="men-avatar"><div class="initials">WM</div><span class="verified">身份认证</span></div>
+      <div class="men-body">
+        <div class="men-name">William</div>
+        <div class="men-basic"><span>35岁</span><span>广州</span><span>182cm</span><span>MBA</span></div>
+        <div class="men-tags"><span class="men-tag">消费品公司高管</span><span class="men-tag cert">学历认证</span><span class="men-tag cert">收入认证</span></div>
+        <div class="men-desc">年收入120-200万 · 高尔夫、潜水、旅行、美食 · 有长期婚恋意愿，家庭观念清晰。</div>
+        <div class="men-suitable">适合：喜欢<strong>高品质生活</strong>和成熟伴侣的女性</div>
+        <button class="btn-match" onclick="promptMatch()">查看我和他的匹配度</button>
+      </div>
+    </div>
+    <div class="men-card">
+      <div class="men-avatar"><div class="initials">LE</div><span class="verified">身份认证</span></div>
+      <div class="men-body">
+        <div class="men-name">Leo</div>
+        <div class="men-basic"><span>31岁</span><span>成都</span><span>179cm</span><span>海外建筑硕士</span></div>
+        <div class="men-tags"><span class="men-tag">建筑设计合伙人</span><span class="men-tag cert">学历认证</span><span class="men-tag cert">职业认证</span></div>
+        <div class="men-desc">年收入80-150万 · 设计、露营、城市漫游、电影 · 生活方式有质感，审美好。</div>
+        <div class="men-suitable">适合：重视<strong>审美</strong>、精神交流和生活方式的女性</div>
+        <button class="btn-match" onclick="promptMatch()">查看我和他的匹配度</button>
+      </div>
+    </div>
+  </div>
+  <p class="men-note">以上人物为示例展示，不代表真实平台注册用户。所有男士资料正式展示前需经过本人授权，平台进行身份、婚姻状态、职业、学历等基础审核。平台不承诺婚恋结果，女性用户可自主选择是否公开信息。</p>
+</section>
+
 <div id="quizOverlay"><div id="quizBox"></div></div>
 <div id="profileOverlay"><div id="profileBox"></div></div>
 <section class="section section-alt center" id="matching">
@@ -598,6 +704,18 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
   });
 });
+
+function promptMatch(){
+  var overlay=document.createElement('div');
+  overlay.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;z-index:300;background:rgba(45,36,36,.5);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center';
+  var box=document.createElement('div');
+  box.style.cssText='background:#fff;border-radius:20px;padding:48px 36px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.15)';
+  box.innerHTML='<div style="font-size:48px;margin-bottom:16px">&#127800;</div><h3 style="font-size:22px;color:#2d2424;margin-bottom:12px;font-weight:500">先完成你的关系测评</h3><p style="font-size:14px;color:#8a7e7e;line-height:1.8;margin-bottom:28px">我们会基于你的性格、依恋模式、价值观和关系需求，为你生成更准确的匹配建议。</p><button style="padding:14px 40px;background:linear-gradient(135deg,#c49b9b,#b08080);color:#fff;border:none;border-radius:28px;font-size:15px;letter-spacing:2px;cursor:pointer;font-family:inherit;transition:all .2s" onclick="this.parentElement.parentElement.remove();document.getElementById('tests').scrollIntoView({behavior:'smooth'})">开始测评</button><button style="display:block;margin:16px auto 0;background:none;border:none;color:#8a7e7e;font-size:13px;cursor:pointer;text-decoration:underline" onclick="this.parentElement.parentElement.remove()">稍后再说</button>';
+  overlay.appendChild(box);
+  overlay.addEventListener('click',function(e){if(e.target===overlay)overlay.remove()});
+  document.body.appendChild(overlay);
+}
+
 </script>
 </body>
 </html>

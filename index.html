@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>KnowYourMatch · 懂自己，遇良人</title>
+<style>
+:root{--rose:#d4a0a0;--gold:#c8a27a;--pink:#f2d5d5;--cream:#fdf6f0;--dark:#3d2c2c;--text:#5c4a4a;--white:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Georgia','Noto Serif SC','PingFang SC',serif;color:var(--text);background:var(--cream);overflow-x:hidden}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  background:linear-gradient(170deg,#fdf6f0 0%,#f9e4e4 30%,#f2d5d5 60%,#fdf6f0 100%)}
+.hero::before{content:'';position:absolute;width:800px;height:800px;background:radial-gradient(circle,rgba(212,160,160,.15) 0%,transparent 70%);top:-200px;right:-200px;border-radius:50%}
+.hero::after{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(200,162,122,.1) 0%,transparent 70%);bottom:-100px;left:-100px;border-radius:50%}
+.hero-inner{position:relative;z-index:1;text-align:center;max-width:700px;padding:40px}
+.hero h1{font-size:48px;color:var(--dark);margin-bottom:12px;letter-spacing:4px;font-weight:400}
+.hero h1 span{display:block;font-size:24px;color:var(--rose);margin-top:8px;letter-spacing:6px;font-weight:300}
+.hero .tagline{font-size:18px;color:var(--gold);margin-bottom:40px;letter-spacing:2px}
+.hero .btn{display:inline-block;padding:16px 48px;border:1.5px solid var(--rose);color:var(--rose);font-size:16px;letter-spacing:3px;border-radius:40px;cursor:pointer;transition:all .3s;text-decoration:none}
+.hero .btn:hover{background:var(--rose);color:var(--white)}
+.hero .float{position:absolute;pointer-events:none;font-size:28px;opacity:.15;animation:float 8s ease-in-out infinite}
+.hero .float:nth-child(1){top:12%;left:8%;animation-delay:0s}
+.hero .float:nth-child(2){top:25%;right:10%;animation-delay:2s;font-size:36px}
+.hero .float:nth-child(3){bottom:20%;left:12%;animation-delay:4s;font-size:22px}
+.hero .float:nth-child(4){bottom:10%;right:8%;animation-delay:6s;font-size:32px}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-20px) rotate(3deg)}}
+
+/* Sections */
+.section{padding:100px 20px;max-width:1000px;margin:0 auto}
+.section h2{text-align:center;font-size:32px;color:var(--dark);margin-bottom:12px;font-weight:400;letter-spacing:3px}
+.section .sub{text-align:center;color:var(--gold);margin-bottom:60px;font-size:15px;letter-spacing:2px}
+
+/* Test Cards */
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
+.test-card{background:var(--white);border-radius:16px;padding:36px 24px;text-align:center;cursor:pointer;transition:all .3s;border:1px solid rgba(200,162,122,.15);box-shadow:0 2px 20px rgba(0,0,0,.04)}
+.test-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(200,162,122,.12);border-color:var(--rose)}
+.test-card .icon{font-size:40px;margin-bottom:16px}
+.test-card h3{font-size:20px;color:var(--dark);margin-bottom:8px;font-weight:400}
+.test-card p{font-size:13px;color:var(--gold);line-height:1.7}
+
+/* Quiz */
+.quiz{display:none;background:var(--white);border-radius:20px;padding:48px 36px;box-shadow:0 4px 30px rgba(0,0,0,.04);border:1px solid rgba(200,162,122,.1)}
+.quiz.active{display:block}
+.quiz-header{text-align:center;margin-bottom:40px}
+.quiz-header h3{font-size:24px;color:var(--dark);margin-bottom:8px;font-weight:400}
+.quiz-header .progress{height:3px;background:#f0e4e4;border-radius:3px;margin-top:24px;overflow:hidden}
+.quiz-header .progress-bar{height:100%;background:linear-gradient(90deg,var(--rose),var(--gold));border-radius:3px;transition:width .4s}
+.question{text-align:center;margin-bottom:32px}
+.question h4{font-size:20px;color:var(--dark);margin-bottom:24px;font-weight:400;line-height:1.6}
+.options{display:grid;gap:12px;max-width:500px;margin:0 auto}
+.option{padding:16px 20px;border:1.5px solid #ead5d5;border-radius:12px;cursor:pointer;transition:all .2s;font-size:15px;color:var(--text);text-align:left}
+.option:hover{border-color:var(--rose);background:rgba(212,160,160,.05)}
+.option.selected{border-color:var(--rose);background:rgba(212,160,160,.1);color:var(--rose)}
+.btn-quiz{margin-top:32px;text-align:center}
+.btn-quiz button{padding:14px 40px;border:none;background:var(--rose);color:var(--white);font-size:15px;letter-spacing:2px;border-radius:30px;cursor:pointer;transition:all .3s}
+.btn-quiz button:hover{background:#c08a8a}
+.btn-quiz button:disabled{opacity:.4;cursor:not-allowed}
+
+/* Results */
+.result{display:none;text-align:center}
+.result.active{display:block}
+.result .type-badge{display:inline-block;padding:10px 30px;background:linear-gradient(135deg,var(--rose),var(--gold));color:var(--white);border-radius:30px;font-size:18px;letter-spacing:3px;margin-bottom:32px}
+.result .desc{max-width:600px;margin:0 auto 40px;line-height:1.9;color:var(--text)}
+.result .matches{margin-top:40px}
+.result .matches h4{color:var(--dark);margin-bottom:16px;font-weight:400}
+.match-tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.match-tag{padding:8px 20px;background:var(--pink);border-radius:20px;font-size:14px;color:var(--rose)}
+.back-btn{margin-top:40px;display:inline-block;padding:12px 36px;border:1.5px solid var(--rose);color:var(--rose);border-radius:30px;cursor:pointer;transition:all .3s;font-size:14px;letter-spacing:2px}
+.back-btn:hover{background:var(--rose);color:var(--white)}
+
+/* Info section */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px}
+.why-card{text-align:center;padding:32px 20px}
+.why-card .icon{font-size:36px;margin-bottom:12px}
+.why-card h4{font-size:18px;color:var(--dark);margin-bottom:8px;font-weight:400}
+.why-card p{font-size:14px;color:var(--gold);line-height:1.7}
+
+footer{text-align:center;padding:60px 20px;color:var(--gold);font-size:13px;letter-spacing:1px}
+footer a{color:var(--rose)}
+</style>
+</head>
+<body>
+
+<div class="hero" id="home">
+  <span class="float">🌸</span><span class="float">✨</span><span class="float">🌹</span><span class="float">🕊️</span>
+  <div class="hero-inner">
+    <h1>Know Your Match<span>懂自己 · 遇良人</span></h1>
+    <p class="tagline">先了解自己，才能遇见真正对的人</p>
+    <a href="#tests" class="btn">开 始 探 索</a>
+  </div>
+</div>
+
+<div class="section" id="tests">
+  <h2>认识自己</h2>
+  <p class="sub">选择一项国际心理测试，开启自我发现之旅</p>
+  <div class="test-grid">
+    <div class="test-card" onclick="startQuiz('mbti')">
+      <div class="icon">🧠</div>
+      <h3>MBTI 性格类型</h3>
+      <p>基于荣格心理学，发现你的性格偏好与思维模式。全球最广泛使用的性格工具。</p>
+    </div>
+    <div class="test-card" onclick="startQuiz('attachment')">
+      <div class="icon">💞</div>
+      <h3>依恋类型</h3>
+      <p>了解你在亲密关系中的依恋模式：安全型、焦虑型、回避型还是恐惧型。</p>
+    </div>
+    <div class="test-card" onclick="startQuiz('lovelang')">
+      <div class="icon">💝</div>
+      <h3>爱的五种语言</h3>
+      <p>你最能感受到爱的方式是什么？肯定、陪伴、礼物、服务还是肢体接触？</p>
+    </div>
+    <div class="test-card" onclick="startQuiz('values')">
+      <div class="icon">🌟</div>
+      <h3>核心价值观</h3>
+      <p>在关系中你最看重什么？安全感、成长、自由还是稳定？找到你的价值排序。</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="display:none" id="quizSection">
+  <div class="quiz active" id="quizBox"></div>
+  <div class="result" id="resultBox"></div>
+</div>
+
+<div class="section" style="background:linear-gradient(180deg,#fdf6f0,#fff,#fdf6f0)">
+  <h2>为什么先认识自己？</h2>
+  <p class="sub">好的关系，从"懂自己"开始</p>
+  <div class="why-grid">
+    <div class="why-card"><div class="icon">🎯</div><h4>更精准的匹配</h4><p>了解自己的性格和需求，才知道什么样的人真正适合你</p></div>
+    <div class="why-card"><div class="icon">🛡️</div><h4>避免盲目投入</h4><p>不再被表面条件迷惑，找到深层次的情感契合</p></div>
+    <div class="why-card"><div class="icon">🌱</div><h4>共同成长</h4><p>理解彼此的差异，把不同变成互补，一起变得更好</p></div>
+  </div>
+</div>
+
+<footer>
+  <p>KnowYourMatch · 专为女性设计的自我认知与匹配平台</p>
+  <p style="margin-top:8px;opacity:.7">测试结果仅供参考，真正的缘分需要用心感受 💛</p>
+</footer>
+
+<script>
+// ========== 测试数据 ==========
+const QUIZZES = {
+  mbti: {
+    title:'MBTI 性格类型测试',
+    icon:'🧠',
+    questions:[
+      {q:'参加聚会时，你通常会：',a:['主动认识新朋友，聊得很开心','倾向于和熟悉的人待在一起']},
+      {q:'做决定时，你更依赖：',a:['直觉和灵感，相信第六感','事实和逻辑，喜欢分析数据']},
+      {q:'面对冲突，你倾向于：',a:['优先考虑他人感受，维护和谐','坚持原则，就事论事']},
+      {q:'你的生活方式更偏向：',a:['喜欢计划，提前安排好一切','随性自由，享受即兴发挥']},
+    ],
+    calc:function(answers){
+      const dims=['EI','SN','TF','JP'];
+      let type='';
+      for(let i=0;i<4;i++) type+=answers[i]===0?dims[i][0]:dims[i][1];
+      const map={
+        ISTJ:'ISTJ · 检查者',ISFJ:'ISFJ · 守护者',INFJ:'INFJ · 提倡者',INTJ:'INTJ · 建筑师',
+        ISTP:'ISTP · 鉴赏家',ISFP:'ISFP · 探险家',INFP:'INFP · 调停者',INTP:'INTP · 逻辑学家',
+        ESTP:'ESTP · 企业家',ESFP:'ESFP · 表演者',ENFP:'ENFP · 竞选者',ENTP:'ENTP · 辩论家',
+        ESTJ:'ESTJ · 总经理',ESFJ:'ESFJ · 执政官',ENFJ:'ENFJ · 主人公',ENTJ:'ENTJ · 指挥官'
+      };
+      return {type:type,label:map[type]||type};
+    },
+    desc:function(r){const d={
+      INFJ:'你是安静而神秘的理想主义者。你渴望深刻的情感连接，能敏锐感知他人情绪。你适合一个能理解你内心世界、尊重你独处需求的伴侣。',
+      INFP:'你是富有诗意的梦想家。你重视真实与意义，在关系中需要被理解和接纳。你的理想伴侣是温柔而有深度的灵魂。',
+      ENFJ:'你是天生的引导者，充满魅力与同理心。你善于经营关系，需要一个能欣赏你的付出、也愿意为你付出的人。',
+      INTJ:'你是独立而坚定的战略家。你不轻易敞开心扉，但一旦认定便是深情。你需要一个同样聪明、有主见的伴侣。',
+      ENFP:'你是自由奔放的探索者。你对人和世界充满好奇，需要能跟上你节奏、给你空间的伴侣。',
+      ISFJ:'你是温暖细心的守护者。你用行动表达爱，需要被看到和珍惜。你的理想伴侣是懂得感恩、给你安全感的人。',
+      ENTJ:'你是勇敢果断的领导者。你在关系中直接而真诚，需要旗鼓相当的伴侣，互相成就。'
+    };return d[r.type]||'你的性格独特而丰富。了解自己是第一步，真正的匹配在于价值观的契合和相互的吸引力。';},
+    matches:function(r){const m={
+      INFJ:['ENFP','ENTP','INFP','INTJ'],INFP:['ENFJ','INFJ','ESFJ','ISFJ'],
+      ENFJ:['INFP','ISFP','INTJ','INFJ'],INTJ:['ENFP','ENTP','INFJ','ENTJ'],
+      ENFP:['INFJ','INTJ','ENTJ','INFP'],ISFJ:['ESFP','ESTP','ENFJ','INFP'],
+      ENTJ:['INTP','INFP','INTJ','ENFJ']
+    };return m[r.type]||['所有类型都有可能'];},
+  },
+  attachment:{
+    title:'依恋类型测试',
+    icon:'💞',
+    questions:[
+      {q:'当伴侣没有及时回复消息时，你会：',a:['有些焦虑，不断查看手机','不太在意，相信对方在忙','既担心又告诉自己不要紧']},
+      {q:'在亲密关系中，你倾向于：',a:['希望和伴侣非常亲密，有时担心被抛弃','保持一定独立，不太喜欢过度依赖','渴望亲密但又害怕受伤，有时候忽冷忽热']},
+      {q:'当伴侣情绪低落时，你通常：',a:['主动陪伴安慰，善于提供情绪支持','不太知道怎么安慰，倾向于给空间','想靠近但又怕自己做得不够好']},
+      {q:'对于爱情，你的信念是：',a:['相信真爱存在，值得全心投入','保持理性，感情需要经营和边界','渴望爱但总觉得会遇到问题']},
+    ],
+    calc:function(answers){
+      const types=['安全型','回避型','焦虑型','恐惧型'];
+      let scores=[0,0,0,0];
+      const scoreMap=[[0,1,2],[2,1,0],[0,1,2],[0,1,2]];
+      answers.forEach((a,i)=>scores[scoreMap[i][a]]++);
+      let max=0,idx=0;scores.forEach((s,i)=>{if(s>max){max=s;idx=i;}});
+      return {type:types[idx],label:types[idx]+'依恋'};
+    },
+    desc:function(r){const d={
+      '安全型':'你拥有健康的依恋模式。在关系中既能亲密又能独立，善于沟通和表达需求。你适合找一个同样安全型或愿意成长的伴侣，共同经营稳定幸福的关系。',
+      '焦虑型':'你在关系中容易感到不安，需要频繁确认对方的爱意。你的敏感是天赋也是挑战。寻找一个安全型伴侣，能给你稳定的回应和耐心，同时学会自我安抚。',
+      '回避型':'你重视独立和空间，不习惯过度亲密。这并非冷漠，而是你的自我保护。适合找一个尊重边界、不逼迫你、能让你慢慢敞开心扉的人。',
+      '恐惧型':'你渴望爱又害怕受伤，内心充满矛盾。这是可以理解的。疗愈自己、学习信任是第一步。一个安全而有耐心的人能帮你走出这个循环。',
+    };return d[r.type]||'';},
+    matches:function(r){const m={
+      '安全型':['安全型','焦虑型','回避型'],'焦虑型':['安全型'],'回避型':['安全型','回避型'],'恐惧型':['安全型']
+    };return m[r.type]||['安全型'];},
+  },
+  lovelang:{
+    title:'爱的五种语言',
+    icon:'💝',
+    questions:[
+      {q:'最能让你感受到被爱的方式是：',a:['听到"我爱你"/"我为你骄傲"','对方花时间专注陪伴','收到精心准备的礼物']},
+      {q:'伴侣做的哪件事最让你感动：',a:['在朋友面前肯定和夸奖你','推掉工作陪你度过重要时刻','帮你修好了坏掉的东西']},
+      {q:'你希望生日时伴侣：',a:['写一封深情的手写信','策划一整天的二人世界','给你一个温暖的拥抱']},
+      {q:'如果有人为你做以下哪件事，你觉得最被爱：',a:['公开表扬你的成就','为你下厨做一顿饭','过马路时自然地牵你的手']},
+    ],
+    calc:function(answers){
+      const langs=['肯定的言语','精心的时刻','接受礼物','服务的行动','身体的接触'];
+      let scores=[0,0,0,0,0];
+      const sm=[[0,1,2],[0,1,3],[0,1,4],[0,3,4]];
+      answers.forEach((a,i)=>scores[sm[i][a]]++);
+      let max=0,idx=0;scores.forEach((s,i)=>{if(s>max){max=s;idx=i;}});
+      return {type:langs[idx],label:'爱语：'+langs[idx]};
+    },
+    desc:function(r){const d={
+      '肯定的言语':'你的爱语是肯定的言语。赞美、鼓励和真诚的表达最能触动你。你需要一个不吝啬夸奖、善于用语言表达爱意的伴侣。',
+      '精心的时刻':'你的爱语是精心的时刻。专注的陪伴比任何礼物都珍贵。你需要一个愿意放下手机、真心陪你的人。',
+      '接受礼物':'你的爱语是接受礼物。礼物对你来说是爱的具象化。你适合一个懂你心思、愿意用礼物表达心意的伴侣。',
+      '服务的行动':'你的爱语是服务的行动。行动胜于言语，做比说重要。你需要一个用实际行动关心你、为你分担的伴侣。',
+      '身体的接触':'你的爱语是身体的接触。拥抱、牵手、亲吻给你最大的安全感。你需要一个乐于肢体表达爱意的伴侣。',
+    };return d[r.type]||'';},
+    matches:function(r){const m={
+      '肯定的言语':['精心的时刻','服务的行动'],'精心的时刻':['肯定的言语','身体的接触'],
+      '接受礼物':['精心的时刻','服务的行动'],'服务的行动':['肯定的言语','身体的接触'],
+      '身体的接触':['精心的时刻','肯定的言语']
+    };return m[r.type]||['任何类型'];},
+  },
+  values:{
+    title:'核心价值观测试',
+    icon:'🌟',
+    questions:[
+      {q:'选择伴侣时，最重要的是：',a:['情绪稳定、给我安全感','支持我的成长和梦想','给我足够的自由和空间']},
+      {q:'理想关系的画面是：',a:['两人携手面对世界，互相支持','一起探索新事物，共同成长','各自精彩又相互欣赏']},
+      {q:'如果发生矛盾，你希望：',a:['对方能冷静沟通，不冷战','能从矛盾中学习，关系更进一步','各自冷静后再心平气和地聊']},
+      {q:'五年后你希望的自己：',a:['有一个稳定幸福的家庭','事业有成且伴侣引以为豪','自由自在地生活，有爱相伴']},
+    ],
+    calc:function(answers){
+      const values=['安全感','共同成长','个人自由','深度连接','生活品质'];
+      let scores=[0,0,0,0,0];
+      const sm=[[0,1,2],[0,1,2],[0,1,2],[0,1,2]];
+      answers.forEach((a,i)=>scores[sm[i][a]]++);
+      let sorted=scores.map((v,i)=>({v,i})).sort((a,b)=>b.v-a.v);
+      let top=sorted.slice(0,2).map(s=>values[s.i]);
+      return {type:top[0],label:'核心需求：'+top[0],top:top};
+    },
+    desc:function(r){const d={
+      '安全感':'"安全感"是你最核心的情感需求。你需要一个情绪稳定、忠诚可靠的伴侣。关系中透明的沟通和持续的承诺对你至关重要。',
+      '共同成长':'"共同成长"是你最看重的。你要的不是一个完美的伴侣，而是一个愿意和你一起变得更好的人。互相激励、共同进步的关系让你充满力量。',
+      '个人自由':'"个人自由"是你的核心价值观。你需要被尊重、被信任，而不是被束缚。理想的伴侣是独立而自信的，给彼此空间又互相支持。',
+      '深度连接':'"深度连接"是你追求的。表面的交流无法满足你，你需要灵魂层面的理解和共鸣。等待虽长，但对的人值得。',
+      '生活品质':'"生活品质"是你重视的。你希望关系让生活更美好、更丰富。适合的伴侣是懂得享受生活、也愿意和你一起创造美好的人。',
+    };return d[r.type]||'';},
+    matches:function(r){
+      let top=r.top||[r.type];
+      return ['安全感→情绪稳定型伴侣','共同成长→积极上进的伴侣','个人自由→独立自信的伴侣','深度连接→善于沟通的伴侣','生活品质→有品味的伴侣'].filter(m=>top.some(t=>m.includes(t)));
+    },
+  }
+};
+
+// ========== 测试逻辑 ==========
+let currentQuiz=null,currentStep=0,answers=[],quizData=null;
+
+function startQuiz(type){
+  quizData=QUIZZES[type];
+  currentStep=0;answers=[];
+  document.getElementById('tests').style.display='none';
+  document.getElementById('quizSection').style.display='block';
+  document.getElementById('resultBox').classList.remove('active');
+  document.getElementById('quizBox').classList.add('active');
+  window.scrollTo({top:document.getElementById('quizSection').offsetTop-40,behavior:'smooth'});
+  renderQuestion();
+}
+
+function renderQuestion(){
+  if(!quizData)return;
+  var q=quizData.questions[currentStep];
+  var total=quizData.questions.length;
+  var pct=(currentStep/total)*100;
+  var html='<div class="quiz-header"><h3>'+quizData.icon+' '+quizData.title+'</h3>';
+  html+='<p style="color:var(--gold);font-size:13px;margin-top:4px">第 '+(currentStep+1)+' / '+total+' 题</p>';
+  html+='<div class="progress"><div class="progress-bar" style="width:'+pct+'%"></div></div></div>';
+  html+='<div class="question"><h4>'+q.q+'</h4><div class="options">';
+  q.a.forEach(function(a,i){
+    html+='<div class="option'+(answers[currentStep]===i?' selected':'')+'" onclick="selectOption('+i+')">'+a+'</div>';
+  });
+  html+='</div></div><div class="btn-quiz">';
+  html+='<button '+(answers[currentStep]===undefined?'disabled':'')+' onclick="nextQuestion()">'+(currentStep<total-1?'下一题':'查看结果')+'</button>';
+  html+='</div>';
+  document.getElementById('quizBox').innerHTML=html;
+}
+
+function selectOption(idx){
+  answers[currentStep]=idx;
+  renderQuestion();
+}
+
+function nextQuestion(){
+  if(currentStep<quizData.questions.length-1){
+    currentStep++;
+    renderQuestion();
+  }else{
+    showResult();
+  }
+}
+
+function showResult(){
+  var r=quizData.calc(answers);
+  var desc=quizData.desc(r);
+  var matches=quizData.matches(r);
+  document.getElementById('quizBox').classList.remove('active');
+  var html='<div class="result active"><div class="type-badge">'+r.label+'</div>';
+  html+='<div class="desc">'+desc+'</div>';
+  html+='<div class="matches"><h4>💛 推荐匹配类型</h4><div class="match-tags">';
+  matches.forEach(function(m){html+='<span class="match-tag">'+m+'</span>';});
+  html+='</div></div>';
+  html+='<a href="#tests" class="back-btn" onclick="resetQuiz()">←  再做其他测试</a></div>';
+  document.getElementById('resultBox').innerHTML=html;
+  document.getElementById('resultBox').classList.add('active');
+  window.scrollTo({top:document.getElementById('resultBox').offsetTop-40,behavior:'smooth'});
+}
+
+function resetQuiz(){
+  document.getElementById('tests').style.display='block';
+  document.getElementById('quizSection').style.display='none';
+  document.getElementById('resultBox').classList.remove('active');
+  document.getElementById('quizBox').classList.remove('active');
+  currentQuiz=null;quizData=null;
+  window.scrollTo({top:document.getElementById('tests').offsetTop-80,behavior:'smooth'});
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var t=document.querySelector(this.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  });
+});
+</script>
+</body>
+</html>
